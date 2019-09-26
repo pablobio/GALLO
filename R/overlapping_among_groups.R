@@ -2,9 +2,17 @@
 #'
 #' Takes a dataframe with a column of genes, QTLs (or other data) and a grouping column and create some matrices with the ovelapping information
 #' @param file A dataframe with the data and grouping factor.
-#' @param x The first grouping factor to be compared
-#' @param y The second grouping factor to be compared
+#' @param x The grouping factor to be compared
+#' @param y The data to be compared among the levels of the grouping factor
 #' @return A list with three matrices: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
+#' #'@examples
+#' data(QTLwindows)
+#'\donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",
+#'marker_file=QTLwindows,method="gene",
+#'marker="haplotypes",interval=100000)}
+#'
+#'\donttest{overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",y="gene_id")}
+#'\donttest{overlapping.out}
 #' @export
 overlapping_among_groups<-function(file,x,y){
   file<-file

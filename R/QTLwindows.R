@@ -24,7 +24,7 @@
 #'(\href{https://doi.org/10.1093/jas/sky382}{PubMed})
 #'
 #'@examples
-#' data(QTLmarkers)
+#' data(QTLwindows)
 #'\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
 #'marker_file=QTLwindows,method="qtl",
 #'marker="haplotypes",interval=100000)}

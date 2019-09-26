@@ -18,7 +18,7 @@ library(devtools)
 install_github("pablobio/GALLO")
 ```
 
-**Annotation of QTLs overlapping genomic windows, an short example**
+**Annotation of QTLs overlapping genomic windows, a short example**
 ```
 #Loading example dataset
 data(QTLwindows)

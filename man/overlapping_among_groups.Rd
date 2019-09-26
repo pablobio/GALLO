@@ -7,7 +7,11 @@
 overlapping_among_groups(file)
 }
 \arguments{
-\item{file}{A dataframe with the data and grouping factor. The columns "data" and "group" are mandatories}
+\item{file}{A dataframe with the data and grouping factor.}
+
+\item{x}{The first grouping factor to be compared}
+
+\item{y}{The second grouping factor to be compared}
 }
 \value{
 A list with three matrices: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one

@@ -23,8 +23,11 @@ install_github("pablobio/GALLO")
 #Loading example dataset
 data(QTLwindows)
 
-#Performing QTL annotation (method="qtl") for genomic windows (marker="haplotype"), using an interval of 100Kb upstream and downstream (interval=100000)
-qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",'marker_file=QTLwindows,method="qtl",'marker="haplotypes",interval=100000)
+#Performing QTL annotation (method="qtl") for genomic windows (marker="haplotype"), 
+$using an interval of 100Kb upstream and downstream (interval=100000)
+
+qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",'marker_file=QTLwindows,
+method="qtl",'marker="haplotypes",interval=100000)
 
 head(qtl.out)
 ```

@@ -12,3 +12,4 @@ splitQTL_comment(output_qtls)
 \description{
 Takes a list of candidate markers and search for genes a determined interval
 }
+\keyword{internal}

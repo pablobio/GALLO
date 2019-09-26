@@ -18,7 +18,7 @@ library(devtools)
 install_github("pablobio/GALLO")
 ```
 
-## Function description
+## Functions description
 
 - find_genes_qtls_around_markers:	Search genes and QTLs around candidate regions
 - overlapping_among_groups:	Overlapping between grouping factors

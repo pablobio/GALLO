@@ -29,5 +29,5 @@
 #'marker_file=QTLwindows,method="qtl",
 #'marker="haplotypes",interval=100000)}
 #'\donttest{head(qtl.out)}
-#'#' @keywords internal
+#' @keywords internal
 "QTLwindows"

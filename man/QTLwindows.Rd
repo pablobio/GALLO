@@ -22,7 +22,7 @@ data(QTLwindows)
 Data from a systematic review which evaluated 18 articles regarding genomw-wide association studies for male fertility traits in beef and dairy cattle
 }
 \examples{
-data(QTLmarkers)
+data(QTLwindows)
 \donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
 marker_file=QTLwindows,method="qtl",
 marker="haplotypes",interval=100000)}

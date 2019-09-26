@@ -17,13 +17,14 @@
 #' @importFrom circlize circos.text
 #' @importFrom graphics par
 #' @importFrom unbalhaar uh
-#' @example
+#' @examples
 #' data(QTLwindows)
-#' \donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",
-#' marker_file=QTLwindows,method="gene",
+#'\donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",marker_file=QTLwindows,method="gene",
 #' marker="haplotypes",interval=100000)}
-#'\donttest{relationship_plot(qtl_file=genes.out,x="Reference",y="gene_id")}
+#'\donttest{relationship_plot(qtl_file=genes.out,x="Reference",
+#'y="gene_id")}
 #' @export
+
 relationship_plot<-function(qtl_file,x,y,grid.col="gray60",degree=90,canvas.xlim=c(-2,2),canvas.ylim=c(-2,2),cex){
   chord.matrix<-matrix(data=0,nrow=length(unique(qtl_file[,x])),ncol=length(unique(qtl_file[,y])),dimnames = list(unique(qtl_file[,x]),unique(qtl_file[,y])))
 

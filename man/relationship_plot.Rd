@@ -27,3 +27,10 @@ relationship_plot(qtl_file, x, y, grid.col = "gray60", degree = 90,
 \description{
 Takes the output from find_genes_qtls_around_markers function and creates a chord plot with the relationship between groups
 }
+\examples{
+data(QTLwindows)
+\donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",marker_file=QTLwindows,method="gene",
+marker="haplotypes",interval=100000)}
+\donttest{relationship_plot(qtl_file=genes.out,x="Reference",
+y="gene_id")}
+}

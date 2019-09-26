@@ -8,7 +8,7 @@
 #' @param labelcex A numeric value indicating the size of the row and column labels
 #' @return A heatmap with the overlapping between groups
 #' @importFrom grDevices colorRampPalette
-#' @example
+#' @examples
 #' #' data(QTLwindows)
 #'\donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",
 #'marker_file=QTLwindows,method="gene",

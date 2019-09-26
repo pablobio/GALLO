@@ -27,3 +27,10 @@ A dataframe with the genes or QTLs mapped within the specified intervals
 \description{
 Takes a list of candidate markers and or regions (haplotypes) and search for genes or QTLs in a determined interval
 }
+\examples{
+data(QTLwindows)
+\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
+marker_file=QTLwindows,method="qtl",
+marker="haplotypes",interval=100000)}
+\donttest{head(qtl.out)}
+}

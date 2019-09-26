@@ -5,7 +5,7 @@
 #' @param x The grouping factor to be compared
 #' @param y The data to be compared among the levels of the grouping factor
 #' @return A list with three matrices: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
-#' #'@examples
+#' @examples
 #' data(QTLwindows)
 #'\donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",
 #'marker_file=QTLwindows,method="gene",

@@ -14,13 +14,17 @@
 #' @importFrom ggplot2 element_text
 #' @importFrom ggplot2 element_blank
 #' @importFrom ggplot2 labs
-#' @export
-#' #' data(QTLwindows)
+#' @examples
+#' data(QTLwindows)
 #'\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
 #'marker_file=QTLwindows,method="qtl",
 #'marker="haplotypes",interval=100000)}
-#'\donttest{qtl.enrich.out<-qtl_enrich(qtl_db="QTL_db.gff",qtl_file=qtl.out,qtl_type="QTL_type",enrich_type="genome",chr.subset=NULL,n.it=1000,padj="fdr")}
+#'\donttest{qtl.enrich.out<-qtl_enrich(qtl_db="QTL_db.gff",
+#'qtl_file=qtl.out,qtl_type="QTL_type",
+#'enrich_type="genome",chr.subset=NULL,
+#'n.it=1000,padj="fdr")}
 #'\donttest{QTLenrich_plot(qtl_enrich=qtl.enrich.out,x="QTL_type",pval="adjpval")}
+#'@export
 
 QTLenrich_plot<-function(qtl_enrich,x,pval){
   pvalue<-qtl_enrich[,pval]

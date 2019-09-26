@@ -10,7 +10,7 @@
 #' @return A dataframe with the genes or QTLs mapped within the specified intervals
 #' @name find_genes_qtls_around_markers
 #' @importFrom utils read.delim
-#' #'@examples
+#' @examples
 #' data(QTLwindows)
 #'\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
 #'marker_file=QTLwindows,method="qtl",

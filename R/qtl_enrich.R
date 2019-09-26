@@ -18,12 +18,15 @@
 #' @importFrom dynamicTreeCut printFlush
 #' @importFrom doParallel registerDoParallel
 #' @importFrom boot boot
-#' @example
+#' @examples
 #' data(QTLwindows)
 #'\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
 #'marker_file=QTLwindows,method="qtl",
 #'marker="haplotypes",interval=100000)}
-#'\donttest{qtl.enrich.out<-qtl_enrich(qtl_db="QTL_db.gff",qtl_file=qtl.out,qtl_type="QTL_type",enrich_type="genome",chr.subset=NULL,n.it=1000,padj="fdr")}
+#'\donttest{qtl.enrich.out<-qtl_enrich(qtl_db="QTL_db.gff",
+#'qtl_file=qtl.out,qtl_type="QTL_type",
+#'enrich_type="genome",chr.subset=NULL,
+#'n.it=1000,padj="fdr")}
 #'\donttest{head(qtl.enrich.out)}
 #' @export
 qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=c("genome","chromosome"),chr.subset=NULL,n.it=NULL,nThreads=NULL,padj=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none"),parallel=c("no", "multicore", "snow")){

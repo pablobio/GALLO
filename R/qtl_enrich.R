@@ -66,7 +66,6 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       qtl.file.types<-unique(qtl_file$QTL_type)
       table.qtl<-as.data.frame(table(qtl_file$CHR))
 
-
       n.qtls<-NULL
       Average_exp<-NULL
       sd_exp<-NULL

@@ -20,20 +20,15 @@
 
 find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qtl"),marker=c("snp","haplotype"),interval=0,nThreads=NULL){
   options(stringsAsFactors = F)
-  #Number of threads to be used
   interval=interval
   nThreads=nThreads
-  #check method
   method <- match.arg(method)
-  #Print method selected
   message(paste("You are using the method:", method, "with", marker))
   cat("\n")
-  #Checking which kind of markers will be used
   if(marker=="snp"){
     #Creating gene data frame
     if (method=="gene"){
-      #load file
-      #Checking if gft file was imported
+
       if (!(file.exists(db_file))){
         stop(paste("file ", db_file, " doesn't exists"))
       }
@@ -41,7 +36,6 @@ find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qt
 
       markers=marker_file
 
-      #reading gtf file
       gtf.file<-rtracklayer::import(db_file)
       gtf.file<-as.data.frame(gtf.file)
       gene<-gtf.file[which(gtf.file$type=="gene"),]
@@ -54,11 +48,9 @@ find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qt
       message(paste("Starting Gene searching using ", interval, " bp", " as interval", sep=""))
 
       chr_list<-unique(markers$CHR)
-      #Sub-setting tables by chromosome and searching within intervals
       output.final<-sub_genes_markers(chr_list,gene,markers,nThreads=nThreads,int=interval)
-    }else {#Running the QTL searching
-      #load file
-      #Checking if SNP file was imported
+    }else {
+
       if (file.exists(db_file)){
         qtl=read.delim(db_file, header=F, comment.char="#")
         qtl<-qtl[,c(1:5,9)]
@@ -71,36 +63,25 @@ find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qt
         stop(paste("file", marker_file, "doesn't exists"))
       }
 
-      #Checking if SNP or haplotype file was imported
       markers=marker_file
-
       message(paste("Starting QTL searching using ", interval, " bp", " as interval", sep=""))
 
       chr_list<-unique(markers$CHR)
-      #Sub-setting tables by chromosome and searching within intervals
       output.final<-sub_qtl_markers(chr_list,qtl,markers,nThreads=nThreads,int=interval)
 
-      #Splitting extra_info column
       cat("\n")
       message("Preparing output file for QTL annotation")
       cat("\n")
       output.final<-splitQTL_comment(output.final)
     }
-  }else{#Runnuning the analysis for haplotypes
+  }else{
 
-    #Creating gene data frame
     if (method=="gene"){
-      #load file
-      #Checking if gft file was imported
 
       if (!(file.exists(db_file))){
         stop(paste("file", db_file, "doesn't exists"))
       }
-
-      #Checking if SNP or haplotype file was imported
-
       markers=marker_file
-
 
       #read gtf file
       gtf.file<-rtracklayer::import(db_file)
@@ -114,12 +95,8 @@ find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qt
       message(paste("Starting Gene searching using ", interval, " bp", " as interval", sep=""))
 
       chr_list<-unique(markers$CHR)
-      #Sub-setting tables by chromosome and searching within intervals
       output.final<-sub_genes_windows(chr_list,gene,markers,nThreads=nThreads,int=interval)
     }else{
-      #Running the QTL searching
-      #load file
-      #Checking if SNP file was imported
       if (file.exists(db_file)){
         qtl=read.delim(db_file, header=F, comment.char="#")
         qtl<-qtl[,c(1:5,9)]
@@ -132,16 +109,10 @@ find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qt
         stop(paste("file", marker_file, "doesn't exists"))
       }
 
-      #Checking if SNP or haplotype file was imported
       markers=marker_file
-
       message(paste("Starting QTL searching using ", interval, " bp", " as interval", sep=""))
-
       chr_list<-unique(markers$CHR)
-      #Sub-setting tables by chromosome and searching within intervals
       output.final<-sub_qtl_windows(chr_list,qtl,markers,nThreads=nThreads,int=interval)
-
-      #Splitting extra_info column
       cat("\n")
       message("Preparing output file for QTL annotation")
       cat("\n")

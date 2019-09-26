@@ -25,7 +25,7 @@ plot_overlapping<-function(overlapping_matrix,nmatrix,ntext,group,labelcex=1){
 
   myPanel <- function(x, y, z, ...) {
     lattice::panel.levelplot(x,y,z,...)
-    lattice::panel.text(x, y,  overlapping_matrix[[ntext]][cbind(x,y)]) ## use handy matrix indexing
+    lattice::panel.text(x, y,  overlapping_matrix[[ntext]][cbind(x,y)])
   }
 
 

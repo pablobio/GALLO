@@ -43,8 +43,6 @@ relationship_plot<-function(qtl_file,x,y,grid.col="gray60",degree=90,canvas.xlim
 
   circlize::circos.track(track.index = 1, panel.fun = function(x, y) {
     sector.name = get.cell.meta.data("sector.index")
-    circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index,
-                facing = "clockwise", niceFacing = T, adj = c(-0.1, 0.5),cex=cex,col="black",font=1)
-  }, bg.border = NA)
+    circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index,facing = "clockwise", niceFacing = T, adj = c(-0.1, 0.5),cex=cex,col="black",font=1)}, bg.border = NA)
   circlize::circos.clear()
 }

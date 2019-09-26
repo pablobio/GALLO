@@ -18,6 +18,16 @@ library(devtools)
 install_github("pablobio/GALLO")
 ```
 
+## Function description
+
+- find_genes_qtls_around_markers:	Search genes and QTLs around candidate regions
+- overlapping_among_groups:	Overlapping between grouping factors
+- plot_overlapping:	Plot overlapping between data and grouping factors
+- plot_qtl_info:	Plot QTLs information from the find_genes_qtls_around_markers output
+- QTLenrich_plot:	Plot enrichment results for QTL enrichment analysis
+- qtl_enrich:	Performs a QTL enrichment analysis based in a Bootstrap simulation for each QTL class
+- relationship_plot:	Plot relationship between data and grouping factors
+
 **Annotation of QTLs overlapping genomic windows, a short example**
 ```
 #Loading example dataset
@@ -31,3 +41,7 @@ method="qtl",'marker="haplotypes",interval=100000)
 
 head(qtl.out)
 ```
+
+## Contact
+
+For more informations, suggestions, dicussions, and bug reports, contact pfonseca@uoguelph.ca

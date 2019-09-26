@@ -8,6 +8,7 @@ Authors@R:
            email = "pfonseca@uoguelph.ca"), person("Aroa", "Suarez-Vega", email = "asuarezv@uoguelph.ca", role = "aut"),person("Gabriele", "Marras", email = "gmarras@semex.com", role = "aut"),person("Angela", "Cánovas", email = "acanovas@uoguelph.ca", role = "aut"))
 Description: The GALLO package search for genes and QTLs around candidate markers and/or regions using the information available on Animal QTLdb. Additionally, allows the graphical visualization of gene and QTL annotation results, data comparison among different grouping factors (methods, breed, tissues, statistical models, studies, etc.), and QTL enrichment for functional studies in livestock species.
 Depends: R (>= 3.5.0)
+biocViews:
 Imports: rtracklayer,data.table,doParallel,parallel,foreach,lattice,utils,graphics,dplyr,grDevices,boot, RColorBrewer, circlize,dynamicTreeCut, ggplot2, unbalhaar
 License: MIT + file LICENSE
 Encoding: UTF-8

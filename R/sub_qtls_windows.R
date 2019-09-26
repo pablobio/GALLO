@@ -12,6 +12,7 @@
 #' @importFrom data.table key
 #' @importFrom data.table as.data.table
 #' @importFrom foreach %dopar%
+#' @keywords internal
 #' @return A dataframe with the QTLs mapped within the specified intervals
 
 sub_qtl_windows<-function(chr_list,qtl,markers,nThreads=NULL,int=0){

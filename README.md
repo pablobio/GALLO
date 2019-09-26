@@ -5,6 +5,6 @@ The Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an 
 **To install the package, the following command line can be use in R:**
 ```
 library(devtools)
-install_github("pablobio/GALLO", force=T)
+install_github("pablobio/GALLO")
 ```
 

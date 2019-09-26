@@ -15,6 +15,7 @@
 #' @importFrom dynamicTreeCut printFlush
 #' @importFrom doParallel registerDoParallel
 #' @importFrom foreach %dopar%
+#' @keywords internal
 #' @return A dataframe with the QTLs mapped within the specified intervals
 
 sub_qtl_markers<-function(chr_list,qtl,markers,nThreads=NULL,int=0){

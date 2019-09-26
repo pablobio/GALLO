@@ -1,7 +1,7 @@
 #' Sub-function to search genes around candidate markers
-#' 
+#'
 #' Takes a list of candidate markers and search for genes a determined interval
-#' @param chr_list "Object with the chromosomes to be analyzed" 
+#' @param chr_list "Object with the chromosomes to be analyzed"
 #' @param gene Data frame with the information from .gtf file
 #' @param markers Data frame with the information from the candidate regions file
 #' @param nThreads The number of threads to be used
@@ -15,22 +15,23 @@
 #' @importFrom dynamicTreeCut printFlush
 #' @importFrom doParallel registerDoParallel
 #' @importFrom foreach %dopar%
+#' @keywords internal
 #' @return A dataframe with the genes or QTLs mapped within the specified intervals
 
 sub_genes_markers<-function(chr_list,gene,markers,nThreads=NULL,int=0){
   nCores = detectCores()
   if (is.null(nThreads)) {
-    if (nCores < 4) 
+    if (nCores < 4)
       nThreads = nCores
     else nThreads = nCores - 1
   }
-  if (!is.numeric(nThreads) || nThreads < 2){ 
+  if (!is.numeric(nThreads) || nThreads < 2){
     stop("nThreads must be numeric and at least 2.")
   }
-  if (nThreads > nCores){ 
-    printFlush(paste("Warning in number of threads: Requested number of threads is higher than number\n", 
-                     "of available processors (or cores).", 
-                     "It is recommended that the number of threads is no more than number\n", 
+  if (nThreads > nCores){
+    printFlush(paste("Warning in number of threads: Requested number of threads is higher than number\n",
+                     "of available processors (or cores).",
+                     "It is recommended that the number of threads is no more than number\n",
                      "of available processors.\n"))
     pars = list(nThreads)
     names(pars) = .threadAllowVar
@@ -38,24 +39,24 @@ sub_genes_markers<-function(chr_list,gene,markers,nThreads=NULL,int=0){
     registerDoParallel(nThreads)
     invisible(nThreads)
   }
-  
+
   # tmp_search.2<-NULL
   foreach::foreach(i=1:length(chr_list),.combine="rbind")%dopar%{ # chr in 1:ncrom
-    
+
     chr<-chr_list[i]
     tmp_gene<-data.table::as.data.table(gene[which(gene$chr==chr),])
     tmp_markers<-data.table::as.data.table(markers[which(markers$CHR==chr),])
     tmp_markers$tmpBP1<-tmp_markers$BP-int
     tmp_markers$tmpBP2<-tmp_markers$BP+int
-    cat("\n") 
+    cat("\n")
     message(paste("Starting analysis for chromosome ",chr, sep=""))
     cat("\n")
-    
+
     #selecting the genes wihthin the intervals
-    
+
     # foverlap requires the second argument to be keyed
     data.table::setkey(tmp_markers, tmpBP1,tmpBP2)
-    
+
     # find rows where dbh falls between dbh_min and dbh_max, and drop unnecessary
     # columns afterwards
     data.table::foverlaps(tmp_gene, tmp_markers, by.x = c("start_pos","end_pos"), by.y =  data.table::key(tmp_markers),nomatch = 0)

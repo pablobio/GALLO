@@ -6,7 +6,7 @@ The Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an 
 
 - The package starts with the outputs from the most common high-throughput genomic association software such as PLINK, BLUPF90, DESeq2, etc. All that it is necessary in the input file is a column named "CHR", indicating the chromosome number and a column named "BP" with the chromosomal position in base pairs, when punctual positions are analyzed (i.e., SNPs). On the other hand, when chromosomal windows are evaluated, the column "CHR" is still mandatory, however, now it is necessary the presence of the columns "BP1" and "BP2". Additionally, the .gtf and .gff files must be provided for gene and QTL annotation respectivelly. 
 
-*.gtf files can de found, for example, in ensembl FTP website: https://www.ensembl.org/info/data/ftp/index.html*
+*.gtf files for gene annotation can de found, for example, in ensembl FTP website: https://www.ensembl.org/info/data/ftp/index.html*
 
 *.gtf files for QTL annotation can be found in Animal QTLdb: https://www.animalgenome.org/QTLdb/*
 
@@ -18,3 +18,13 @@ library(devtools)
 install_github("pablobio/GALLO")
 ```
 
+**Annotation of QTLs overlapping genomic windows, an short example**
+```
+#Loading example dataset
+data(QTLwindows)
+
+#Performing QTL annotation (method="qtl") for genomic windows (marker="haplotype"), using an interval of 100Kb upstream and downstream (interval=100000)
+qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",'marker_file=QTLwindows,method="qtl",'marker="haplotypes",interval=100000)
+
+head(qtl.out)
+```

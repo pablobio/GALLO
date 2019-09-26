@@ -6,7 +6,7 @@
 #' @param y The second grouping factor to be compared
 #' @return A list with three matrices: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
 #' @export
-overlapping_among_groups<-function(file){
+overlapping_among_groups<-function(file,x,y){
   file<-file
   out.matrix.N<-matrix(ncol=length(unique(file$x)), nrow=length(unique(file$x)), NA)
 

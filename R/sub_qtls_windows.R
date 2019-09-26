@@ -1,6 +1,19 @@
 #' Sub-function to search QTLs around candidate markers
-#'\alias sub_qtl_windows
-
+#'
+#' Takes a list of candidate markers and search for genes a determined interval
+#' @param chr_list "Object with the chromosomes to be analyzed"
+#' @param qtl Data frame with the information from .gff file
+#' @param markers Data frame with the information from the candidate regions file
+#' @param nThreads The number of threads to be used
+#' @param int The interval in base pair
+#' @name sub_qtl_windows
+#' @importFrom dplyr do
+#' @importFrom data.table setkey
+#' @importFrom data.table key
+#' @importFrom data.table as.data.table
+#' @importFrom foreach %dopar%
+#' @keywords internal
+#' @return A dataframe with the QTLs mapped within the specified intervals
 
 sub_qtl_windows<-function(chr_list,qtl,markers,nThreads=NULL,int=0){
   nCores = detectCores()

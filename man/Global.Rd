@@ -6,3 +6,4 @@
 \description{
 Global variables
 }
+\keyword{internal}

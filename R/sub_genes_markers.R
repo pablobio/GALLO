@@ -1,6 +1,22 @@
 #' Sub-function to search genes around candidate markers
-#' \alias sub_genes_markers
-
+#'
+#' Takes a list of candidate markers and search for genes a determined interval
+#' @param chr_list "Object with the chromosomes to be analyzed"
+#' @param gene Data frame with the information from .gtf file
+#' @param markers Data frame with the information from the candidate regions file
+#' @param nThreads The number of threads to be used
+#' @param int The interval in base pair
+#' @name sub_genes_markers
+#' @importFrom dplyr do
+#' @importFrom data.table setkey
+#' @importFrom data.table key
+#' @importFrom data.table as.data.table
+#' @importFrom parallel detectCores
+#' @importFrom dynamicTreeCut printFlush
+#' @importFrom doParallel registerDoParallel
+#' @importFrom foreach %dopar%
+#' @keywords internal
+#' @return A dataframe with the genes or QTLs mapped within the specified intervals
 
 sub_genes_markers<-function(chr_list,gene,markers,nThreads=NULL,int=0){
   nCores = detectCores()

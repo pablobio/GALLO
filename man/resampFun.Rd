@@ -14,3 +14,4 @@ resampFun(sub.qtl, i)
 \description{
 Takes a list of candidate markers and search for genes a determined interval
 }
+\keyword{internal}

@@ -23,3 +23,4 @@ A dataframe with the genes or QTLs mapped within the specified intervals
 \description{
 Takes a list of candidate markers and search for genes a determined interval
 }
+\keyword{internal}

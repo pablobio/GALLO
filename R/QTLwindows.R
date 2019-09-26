@@ -20,7 +20,7 @@
 #'
 #'@keywords datasets
 #'
-#'@references Fonseca et al. (2018) Journal of Animal Science, Volume 96, Issue 12, December 2018, Pages 4978–4999. 
+#'@references Fonseca et al. (2018) Journal of Animal Science, Volume 96, Issue 12, December 2018, Pages 4978–4999.
 #'(\href{https://doi.org/10.1093/jas/sky382}{PubMed})
 #'
 #'@examples
@@ -29,4 +29,5 @@
 #'marker_file=QTLwindows,method="qtl",
 #'marker="haplotypes",interval=100000)}
 #'\donttest{head(qtl.out)}
+#'#' @keywords internal
 "QTLwindows"

@@ -3,7 +3,7 @@
 \docType{data}
 \name{QTLmarkers}
 \alias{QTLmarkers}
-\title{bCandidate markers identified by GWAS associated with fertility traits in cattle}
+\title{Candidate markers identified by GWAS associated with fertility traits in cattle}
 \format{A data frame with 50 rows and 6 variables:
 \itemize{
  \item Associated.marker: Significantly associated marker
@@ -27,7 +27,8 @@ marker="snp",interval=100000)}
 \donttest{head(qtl.out)}
 }
 \references{
-Fonseca et al. (2018) Journal of Animal Science, Volume 96, Issue 12, December 2018, Pages 4978–4999. 
+Fonseca et al. (2018) Journal of Animal Science, Volume 96, Issue 12, December 2018, Pages 4978–4999.
 (\href{https://doi.org/10.1093/jas/sky382}{PubMed})
 }
 \keyword{datasets}
+\keyword{internal}

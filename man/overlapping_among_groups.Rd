@@ -4,7 +4,7 @@
 \alias{overlapping_among_groups}
 \title{Overlapping between grouping factors}
 \usage{
-overlapping_among_groups(file)
+overlapping_among_groups(file, x, y)
 }
 \arguments{
 \item{file}{A dataframe with the data and grouping factor.}

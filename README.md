@@ -4,6 +4,12 @@ The Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an 
 
 ## Requirements
 
+*Depends:* R (>= 3.5.0)
+
+*Imports:* rtracklayer,data.table,doParallel,parallel,foreach,lattice,utils,graphics,dplyr,grDevices,boot, RColorBrewer, circlize,dynamicTreeCut, ggplot2, unbalhaar
+
+License: MIT + file LICENSE
+
 ## Usage
 
 - The package starts with the outputs from the most common high-throughput genomic association software such as PLINK, BLUPF90, DESeq2, etc. All that it is necessary in the input file is a column named "CHR", indicating the chromosome number and a column named "BP" with the chromosomal position in base pairs, when punctual positions are analyzed (i.e., SNPs). On the other hand, when chromosomal windows are evaluated, the column "CHR" is still mandatory, however, now it is necessary the presence of the columns "BP1" and "BP2". Additionally, the .gtf and .gff files must be provided for gene and QTL annotation respectivelly. 

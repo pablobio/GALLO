@@ -16,18 +16,18 @@
 #' @export
 overlapping_among_groups<-function(file,x,y){
   file<-file
-  out.matrix.N<-matrix(ncol=length(unique(file$x)), nrow=length(unique(file$x)), NA)
+  out.matrix.N<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA)
 
-  out.matrix.perc<-matrix(ncol=length(unique(file$x)), nrow=length(unique(file$x)), NA)
+  out.matrix.perc<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA)
 
-  out.matrix.merged<-matrix(ncol=length(unique(file$x)), nrow=length(unique(file$x)), NA)
+  out.matrix.merged<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA)
 
-  trait<-unique(file$x)
+  trait<-unique(file[,x])
 
   for(i in 1:length(trait)){
     for(k in 1:length(trait)){
-      tmp_perc<-(round(length(which(file[which(file$group==trait[i]),y] %in% file[which(file$group==trait[k]),y]))/length(file[which(file$group==trait[i]),y]),2))
-      tmp_N<-(round(length(which(file[which(file$group==trait[i]),y] %in% file[which(file$group==trait[k]),y])),2))
+      tmp_perc<-(round(length(which(file[which(file$group==trait[i]),y] %in% file[which(file[,x]==trait[k]),y]))/length(file[which(file$group==trait[i]),y]),2))
+      tmp_N<-(round(length(which(file[which(file$group==trait[i]),y] %in% file[which(file[,x]==trait[k]),y])),2))
       out.matrix.N[i,k]<-tmp_N
       out.matrix.perc[i,k]<-tmp_perc
       out.matrix.merged[i,k]<-paste(tmp_N," ","(",tmp_perc,")",sep="")

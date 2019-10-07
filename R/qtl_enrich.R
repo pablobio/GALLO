@@ -56,6 +56,7 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
     qtl<-qtl[!is.na(qtl$chr),]
     qtl<-qtl[!is.na(qtl$start_pos),]
     qtl<-qtl[!is.na(qtl$end_pos),]
+    qtl_file<-qtl
   }else{
     stop(paste("file", qtl_db, "doesn't exists"))
   }

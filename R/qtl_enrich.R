@@ -29,7 +29,7 @@
 #'n.it=1000,padj="fdr")}
 #'\donttest{head(qtl.enrich.out)}
 #' @export
-qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=c("genome","chromosome"),chr.subset=NULL,n.it=NULL,nThreads=NULL,padj=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none"),parallel=c("no", "multicore", "snow")){
+qtl_enrich.<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=c("genome","chromosome"),chr.subset=NULL,n.it=NULL,nThreads=NULL,padj=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none"),parallel=c("no", "multicore", "snow")){
   nCores = detectCores()
   if (is.null(nThreads)) {
     if (nCores < 4)
@@ -56,10 +56,10 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
     qtl<-qtl[!is.na(qtl$chr),]
     qtl<-qtl[!is.na(qtl$start_pos),]
     qtl<-qtl[!is.na(qtl$end_pos),]
-    qtl_file<-qtl
   }else{
     stop(paste("file", qtl_db, "doesn't exists"))
   }
+
 
   if(qtl_type=="QTL_type"){
     if(enrich_type=="genome"){
@@ -71,7 +71,7 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       Average_exp<-NULL
       sd_exp<-NULL
       out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind")%dopar%{
-        tmp.class<-qtl.file.types[k]
+        tmp.class<<-qtl.file.types[k]
         table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$QTL_type==tmp.class),"chr"]))
         n.qtls<-nrow(qtl_file[which(qtl_file$QTL_type==tmp.class),])
 
@@ -107,7 +107,7 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       Average_exp<-NULL
       sd_exp<-NULL
       out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind")%dopar%{
-        tmp.class<-qtl.file.types[k]
+        tmp.class<<-qtl.file.types[k]
         table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$QTL_type==tmp.class),"chr"]))
 
         fake.table<-data.frame(Var1=chr.subset,Freq=rep(0,length(chr.subset)))
@@ -145,7 +145,7 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       Average_exp<-NULL
       sd_exp<-NULL
       out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind")%dopar%{
-        tmp.class<-qtl.file.types[k]
+        tmp.class<<-qtl.file.types[k]
         table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$Name==tmp.class),"chr"]))
         n.qtls<-nrow(qtl_file[which(qtl_file$Name==tmp.class),])
 
@@ -181,7 +181,7 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       Average_exp<-NULL
       sd_exp<-NULL
       out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind")%dopar%{
-        tmp.class<-qtl.file.types[k]
+        tmp.class<<-qtl.file.types[k]
         table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$Name==tmp.class),"chr"]))
 
         fake.table<-data.frame(Var1=chr.subset,Freq=rep(0,length(chr.subset)))

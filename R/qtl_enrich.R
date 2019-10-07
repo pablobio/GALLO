@@ -29,7 +29,7 @@
 #'n.it=1000,padj="fdr")}
 #'\donttest{head(qtl.enrich.out)}
 #' @export
-qtl_enrich.<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=c("genome","chromosome"),chr.subset=NULL,n.it=NULL,nThreads=NULL,padj=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none"),parallel=c("no", "multicore", "snow")){
+qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=c("genome","chromosome"),chr.subset=NULL,n.it=NULL,nThreads=NULL,padj=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none"),parallel=c("no", "multicore", "snow")){
   nCores = detectCores()
   if (is.null(nThreads)) {
     if (nCores < 4)

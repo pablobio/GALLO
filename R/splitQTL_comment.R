@@ -18,13 +18,13 @@ splitQTL_comment<-function(output_qtls){
 
   tmp.type<-sapply(strsplit(as.character(output_qtls[grep("_QTL",output_qtls$QTL_type),"QTL_type"]), "_QTL"), `[`, 1)
   if(!is.null(tmp.type)){
-    output_qtls[grep("_QTL",output_qtls$QTL_type),"QTL_type"]<-"QTL"
+    output_qtls[grep("_QTL",output_qtls$QTL_type),"Association_type"]<-"QTL"
     output_qtls[grep("_QTL",output_qtls$QTL_type),"QTL_type"]<-tmp.type
   }
 
   tmp.type<-sapply(strsplit(as.character(output_qtls[grep("_Mendelian",output_qtls$QTL_type),"QTL_type"]), "_Mendelian"), `[`, 1)
   if(!is.null(tmp.type)){
-    output_qtls[grep("_Mendelian",output_qtls$QTL_type),"QTL_type"]<-"Mendelian"
+    output_qtls[grep("_Mendelian",output_qtls$QTL_type),"Association_type"]<-"Mendelian"
     output_qtls[grep("_Mendelian",output_qtls$QTL_type),"QTL_type"]<-tmp.type
   }
 

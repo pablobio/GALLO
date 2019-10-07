@@ -59,6 +59,7 @@ sub_qtl_markers<-function(chr_list,qtl,markers,nThreads=NULL,int=0){
 
     # find rows where dbh falls between dbh_min and dbh_max, and drop unnecessary
     # columns afterwards
-    data.table::foverlaps(tmp_qtl, tmp_markers, by.x = c("start_pos","end_pos"), by.y =  data.table::key(tmp_markers),nomatch = 0)
+    out<-data.table::foverlaps(tmp_gene, tmp_markers, by.x = c("start_pos","end_pos"), by.y =  data.table::key(tmp_markers),nomatch = 0)
+    out[,-c("tmpBP1","tmpBP2")]
   }
 }

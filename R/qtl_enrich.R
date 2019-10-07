@@ -139,7 +139,7 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       message("Staring QTL enrichment analysis for trait")
       qtl.file.types<-unique(qtl_file$Name)
       trait.ID<-unique(qtl_file$trait_ID)
-      table.qtl<-as.data.frame(table(qtl.file$CHR))
+      table.qtl<-as.data.frame(table(qtl_file$CHR))
 
       n.qtls<-NULL
       Average_exp<-NULL

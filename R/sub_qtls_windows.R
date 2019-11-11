@@ -30,12 +30,13 @@ sub_qtl_windows<-function(chr_list,qtl,markers,nThreads=NULL,int=0){
                      "of available processors (or cores).",
                      "It is recommended that the number of threads is no more than number\n",
                      "of available processors.\n"))
-    pars = list(nThreads)
-    names(pars) = .threadAllowVar
-    do.call(Sys.setenv, pars)
-    registerDoParallel(nThreads)
-    invisible(nThreads)
   }
+
+  pars = list(nThreads)
+  names(pars) = .threadAllowVar
+  do.call(Sys.setenv, pars)
+  registerDoParallel(nThreads)
+  invisible(nThreads)
 
   # tmp_search.2<-NULL
   foreach::foreach(i=1:length(chr_list),.combine="rbind")%dopar%{ # chr in 1:ncrom

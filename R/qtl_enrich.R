@@ -41,12 +41,13 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
   }
   if (nThreads > nCores){
     printFlush(paste("Warning in number of threads: Requested number of threads is higher than number\n", "of available processors (or cores).", "It is recommended that the number of threads is no more than number\n", "of available processors.\n"))
-    pars = list(nThreads)
-    names(pars) = .threadAllowVar
-    do.call(Sys.setenv, pars)
-    registerDoParallel(nThreads)
-    invisible(nThreads)
   }
+
+  pars = list(nThreads)
+  names(pars) = .threadAllowVar
+  do.call(Sys.setenv, pars)
+  registerDoParallel(nThreads)
+  invisible(nThreads)
 
   if (file.exists(qtl_db)){
     qtl=read.delim(qtl_db, header=F, comment.char="#",stringsAsFactors = F)

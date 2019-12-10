@@ -30,7 +30,7 @@ sub_genes_markers<-function(chr_list,gene,markers,nThreads=NULL,int=0){
     registerDoParallel(nThreads)
     invisible(nThreads)
   }
-  }
+
   if (!is.numeric(nThreads) || nThreads < 2){
     stop("nThreads must be numeric and at least 2.")
   }

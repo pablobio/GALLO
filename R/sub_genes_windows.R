@@ -24,9 +24,6 @@ sub_genes_windows<-function(chr_list,gene,markers,nThreads=NULL,int=0){
     if (nCores < 4)
       nThreads = nCores
     else nThreads = nCores - 1
-    pars = list(nThreads)
-    names(pars) = .threadAllowVar
-    do.call(Sys.setenv, pars)
     registerDoParallel(nThreads)
     invisible(nThreads)
   }
@@ -38,9 +35,6 @@ sub_genes_windows<-function(chr_list,gene,markers,nThreads=NULL,int=0){
                      "of available processors (or cores).",
                      "It is recommended that the number of threads is no more than number\n",
                      "of available processors.\n"))
-    pars = list(nThreads)
-    names(pars) = .threadAllowVar
-    do.call(Sys.setenv, pars)
     registerDoParallel(nThreads)
     invisible(nThreads)
   }

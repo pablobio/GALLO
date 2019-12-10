@@ -33,8 +33,7 @@ sub_qtl_markers<-function(chr_list,qtl,markers,nThreads=NULL,int=0){
   if (nThreads > nCores){
     printFlush(paste("Warning in number of threads: Requested number of threads is higher than number\n",
                      "of available processors (or cores).",
-                     "It is recommended that the number of threads is no more than number\n",
-                     "of available processors.\n"))
+                     "It is recommended that the number of threads is no more than number\n","of available processors.\n"))
     registerDoParallel(nThreads)
     invisible(nThreads)
   }

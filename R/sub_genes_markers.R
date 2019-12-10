@@ -25,19 +25,14 @@ sub_genes_markers<-function(chr_list,gene,markers,nThreads=NULL,int=0){
       nThreads = nCores
     else nThreads = nCores - 1
     registerDoParallel(nThreads)
-    invisible(nThreads)
   }
 
   if (!is.numeric(nThreads) || nThreads < 2){
     stop("nThreads must be numeric and at least 2.")
   }
   if (nThreads > nCores){
-    printFlush(paste("Warning in number of threads: Requested number of threads is higher than number\n",
-                     "of available processors (or cores).",
-                     "It is recommended that the number of threads is no more than number\n",
-                     "of available processors.\n"))
+    printFlush(paste("Warning in number of threads: Requested number of threads is higher than number\n","of available processors (or cores).","It is recommended that the number of threads is no more than number\n","of available processors.\n"))
     registerDoParallel(nThreads)
-    invisible(nThreads)
   }
 
 

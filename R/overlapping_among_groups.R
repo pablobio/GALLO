@@ -26,8 +26,8 @@ overlapping_among_groups<-function(file,x,y){
 
   for(i in 1:length(trait)){
     for(k in 1:length(trait)){
-      tmp_perc<-(round(length(which(file[which(file$group==trait[i]),y] %in% file[which(file[,x]==trait[k]),y]))/length(file[which(file$group==trait[i]),y]),2))
-      tmp_N<-(round(length(which(file[which(file$group==trait[i]),y] %in% file[which(file[,x]==trait[k]),y])),2))
+      tmp_perc<-(round(length(which(file[which(file[,x]==trait[i]),y] %in% file[which(file[,x]==trait[k]),y]))/length(file[which(file[,x]==trait[i]),y]),2))
+      tmp_N<-(round(length(which(file[which(file[,x]==trait[i]),y] %in% file[which(file[,x]==trait[k]),y])),2))
       out.matrix.N[i,k]<-tmp_N
       out.matrix.perc[i,k]<-tmp_perc
       out.matrix.merged[i,k]<-paste(tmp_N," ","(",tmp_perc,")",sep="")

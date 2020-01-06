@@ -35,19 +35,16 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
     if (nCores < 4)
       nThreads = nCores
     else nThreads = nCores - 1
+    registerDoParallel(nThreads)
   }
+
   if (!is.numeric(nThreads) || nThreads < 2){
     stop("nThreads must be numeric and at least 2.")
   }
   if (nThreads > nCores){
-    printFlush(paste("Warning in number of threads: Requested number of threads is higher than number\n", "of available processors (or cores).", "It is recommended that the number of threads is no more than number\n", "of available processors.\n"))
+    printFlush(paste("Warning in number of threads: Requested number of threads is higher than number\n","of available processors (or cores).","It is recommended that the number of threads is no more than number\n","of available processors.\n"))
+    registerDoParallel(nThreads)
   }
-
-  pars = list(nThreads)
-  names(pars) = .threadAllowVar
-  do.call(Sys.setenv, pars)
-  registerDoParallel(nThreads)
-  invisible(nThreads)
 
   if (file.exists(qtl_db)){
     qtl=read.delim(qtl_db, header=F, comment.char="#",stringsAsFactors = F)

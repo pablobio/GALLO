@@ -205,7 +205,7 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       }
       out.enrich<-out.enrich[which(out.enrich$Number_QTLs!=0),]
       out.enrich$QTL_type<-gsub("_"," ", out.enrich$QTL_type)
-      qtl_file$coord_qtl<-paste(qtl_file$QTL_type,"_",qtl_file$CHR,sep="")
+      qtl_file$coord_qtl<-paste(qtl_file$Name,"_",qtl_file$CHR,sep="")
       out.enrich$coord_qtl<-paste(out.enrich$QTL_type,"_",out.enrich$Chr,sep="")
       out.enrich<-out.enrich[which(out.enrich$coord_qtl%in%qtl_file$coord_qtl),]
       out.enrich<-out.enrich[,-which(names(out.enrich)=="coord_qtl")]

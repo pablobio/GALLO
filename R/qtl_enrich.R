@@ -128,11 +128,11 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       }
       out.enrich<-out.enrich[which(out.enrich$Number_QTLs!=0),]
       out.enrich$QTL_type<-gsub("_"," ", out.enrich$QTL_type)
-      out.enrich$adjpval<-p.adjust(out.enrich$p_value,method=padj,n=length(out.enrich$p_value))
       qtl_file$coord_qtl<-paste(qtl_file$QTL_type,"_",qtl_file$CHR,sep="")
       out.enrich$coord_qtl<-paste(out.enrich$QTL_type,"_",out.enrich$Chr,sep="")
       out.enrich<-out.enrich[which(out.enrich$coord_qtl%in%qtl_file$coord_qtl),]
       out.enrich<-out.enrich[,-which(names(out.enrich)=="coord_qtl")]
+      out.enrich$adjpval<-p.adjust(out.enrich$p_value,method=padj,n=length(out.enrich$p_value))
     }
   }
 
@@ -205,11 +205,11 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       }
       out.enrich<-out.enrich[which(out.enrich$Number_QTLs!=0),]
       out.enrich$QTL_type<-gsub("_"," ", out.enrich$QTL_type)
-      out.enrich$adj.pval<-p.adjust(out.enrich$p_value,method=padj,n=length(out.enrich$p_value))
       qtl_file$coord_qtl<-paste(qtl_file$QTL_type,"_",qtl_file$CHR,sep="")
       out.enrich$coord_qtl<-paste(out.enrich$QTL_type,"_",out.enrich$Chr,sep="")
       out.enrich<-out.enrich[which(out.enrich$coord_qtl%in%qtl_file$coord_qtl),]
       out.enrich<-out.enrich[,-which(names(out.enrich)=="coord_qtl")]
+      out.enrich$adj.pval<-p.adjust(out.enrich$p_value,method=padj,n=length(out.enrich$p_value))
     }
   }
   cat("\n")

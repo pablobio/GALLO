@@ -28,6 +28,8 @@
 
 relationship_plot<-function (qtl_file, x, y, grid.col = "gray60", degree = 90,canvas.xlim = c(-2, 2), canvas.ylim = c(-2, 2),cex, gap){
 
+  require(circlize)
+
   chord.matrix <- matrix(data = 0, nrow = length(unique(qtl_file[,x])), ncol = length(unique(qtl_file[, y])), dimnames = list(unique(qtl_file[,x]), unique(qtl_file[, y])))
 
   for (i in 1:nrow(chord.matrix)) {

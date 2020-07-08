@@ -43,6 +43,7 @@ Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an R pa
 
 \raggedright
 \vspace{12pt}
+
 The example datasets composing this tutorial are subsets of Genome-Wide Association Studies (GWAS) for male fertility traits in cattle, which are summarized in Fonseca et al. (2018) and Cánovas et al. (2014). It is possible to access the datasets using the following code:
 
 ```{r echo=T, results='asis'}

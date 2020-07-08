@@ -4,9 +4,14 @@
 \alias{find_genes_qtls_around_markers}
 \title{Search genes and QTLs around candidate regions}
 \usage{
-find_genes_qtls_around_markers(db_file, marker_file, method = c("gene",
-  "qtl"), marker = c("snp", "haplotype"), interval = 0,
-  nThreads = NULL)
+find_genes_qtls_around_markers(
+  db_file,
+  marker_file,
+  method = c("gene", "qtl"),
+  marker = c("snp", "haplotype"),
+  interval = 0,
+  nThreads = NULL
+)
 }
 \arguments{
 \item{db_file}{file with the gene mapping or QTL information. For the gene mapping, you should use the .gtf file download from Ensembl data base. For the QTL search, you need to inform the .gff file that can be downloaded from Animal QTlLdb.}

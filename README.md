@@ -8,7 +8,7 @@ The Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an 
 
 *Imports:* rtracklayer, data.table, doParallel, parallel, foreach, lattice, utils, graphics, dplyr, grDevices, boot, RColorBrewer, circlize, dynamicTreeCut, ggplot2, unbalhaar
 
-License: MIT + file LICENSE
+License: MIT 
 
 ## Usage
 

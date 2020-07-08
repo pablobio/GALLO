@@ -4,8 +4,17 @@
 \alias{relationship_plot}
 \title{Plot relationship between data and grouping factors}
 \usage{
-relationship_plot(qtl_file, x, y, grid.col = "gray60", degree = 90,
-  canvas.xlim = c(-2, 2), canvas.ylim = c(-2, 2), cex)
+relationship_plot(
+  qtl_file,
+  x,
+  y,
+  grid.col = "gray60",
+  degree = 90,
+  canvas.xlim = c(-2, 2),
+  canvas.ylim = c(-2, 2),
+  cex,
+  gap
+)
 }
 \arguments{
 \item{qtl_file}{The output from find_genes_qtls_around_markers function}
@@ -23,6 +32,8 @@ relationship_plot(qtl_file, x, y, grid.col = "gray60", degree = 90,
 \item{canvas.ylim}{The coordinate for the canvas in the y-axis. By default is c(-1,1)}
 
 \item{cex}{The size of the labels to be printed in the plot}
+
+\item{gap}{A numeric value corresponding to the gap between the chord sectors}
 }
 \description{
 Takes the output from find_genes_qtls_around_markers function and creates a chord plot with the relationship between groups

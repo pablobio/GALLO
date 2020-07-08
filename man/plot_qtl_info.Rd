@@ -4,8 +4,13 @@
 \alias{plot_qtl_info}
 \title{Plot QTLs information from the find_genes_qtls_around_markers output}
 \usage{
-plot_qtl_info(qtl_file, qtl_plot = c("qtl_type", "qtl_name"),
-  n = "all", qtl_class = NULL, ...)
+plot_qtl_info(
+  qtl_file,
+  qtl_plot = c("qtl_type", "qtl_name"),
+  n = "all",
+  qtl_class = NULL,
+  ...
+)
 }
 \arguments{
 \item{qtl_file}{The output from find_genes_qtls_around_markers function}

@@ -4,7 +4,8 @@
 \name{QTLmarkers}
 \alias{QTLmarkers}
 \title{Candidate markers identified by GWAS associated with fertility traits in cattle}
-\format{A data frame with 50 rows and 6 variables:
+\format{
+A data frame with 50 rows and 6 variables:
 \itemize{
  \item Associated.marker: Significantly associated marker
  \item Trait: Trait associated
@@ -12,7 +13,8 @@
  \item BP: Chromosomal position in base pairs (bovine reference assembly UMD3.1)
  \item Breed: Breed used in the study
  \item Reference: Study which the markers were retrieved
-}}
+}
+}
 \usage{
 data(QTLmarkers)
 }

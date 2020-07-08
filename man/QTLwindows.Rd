@@ -4,7 +4,8 @@
 \name{QTLwindows}
 \alias{QTLwindows}
 \title{Candidate windows identified by GWAS associated with fertility traits in cattle}
-\format{A data frame with 50 rows and 8 variables:
+\format{
+A data frame with 50 rows and 8 variables:
 \itemize{
  \item First.marker.in.the.window: First marker mapped in the candidate window
  \item Last.marker.in.the.window: Last marker mapped in the candidate window
@@ -14,7 +15,8 @@
  \item BP1: Chromosomal position in base pairs for the last marker mapped in the candidate window (bovine reference assembly UMD3.1)
  \item Breed: Breed used in the study
  \item Reference: Study which the markers were retrieved
-}}
+}
+}
 \usage{
 data(QTLwindows)
 }

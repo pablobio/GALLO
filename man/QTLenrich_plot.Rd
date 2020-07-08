@@ -14,7 +14,7 @@ QTLenrich_plot(qtl_enrich, x, pval)
 \item{pval}{P-value to be used in the plot. If "p_value" informed, a non-adjusted pvalue will be plot. If "padj" informed, the adjusted p-value from the qtl enrichment analysis will be plotted.}
 }
 \description{
-Takes the output from overlapping_amoung_groups function and creates a heatmap with the overlapping between groups
+Takes the output from qtl_enrich function and creates a bubble plot with enrichment results
 }
 \examples{
 data(QTLwindows)

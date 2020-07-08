@@ -4,11 +4,17 @@
 \alias{qtl_enrich}
 \title{Performs a QTL enrichment analysis based in a Bootstrap simulation for each QTL class}
 \usage{
-qtl_enrich(qtl_db, qtl_file, qtl_type = c("QTL_type", "trait"),
-  enrich_type = c("genome", "chromosome"), chr.subset = NULL,
-  n.it = NULL, nThreads = NULL, padj = c("holm", "hochberg",
-  "hommel", "bonferroni", "BH", "BY", "fdr", "none"), parallel = c("no",
-  "multicore", "snow"))
+qtl_enrich(
+  qtl_db,
+  qtl_file,
+  qtl_type = c("QTL_type", "trait"),
+  enrich_type = c("genome", "chromosome"),
+  chr.subset = NULL,
+  n.it = NULL,
+  nThreads = NULL,
+  padj = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none"),
+  parallel = c("no", "multicore", "snow")
+)
 }
 \arguments{
 \item{qtl_db}{The .gff file that can be downloaded from Animal QTlLdb}

@@ -17,15 +17,15 @@ plot_qtl_info(
 
 \item{qtl_plot}{"qtl_type" or"qtl_name"}
 
-\item{n}{number of QTLs to be plotted when the qtl_name option is selected}
+\item{n}{Number of QTLs to be plotted when the qtl_name option is selected}
 
 \item{qtl_class}{Class of QTLs to be plotted when the qtl_name option is selected}
 
-\item{...}{arguments to be passed to/from other methods. For the default method these can include further arguments (such as axes, asp and main) and graphical parameters (see par) which are passed to plot.window(), title() and axis.}
+\item{...}{Arguments to be passed to/from other methods. For the default method these can include further arguments (such as axes, asp and main) and graphical parameters (see par) which are passed to plot.window(), title() and axis.}
 }
 \value{
 A plot with the requested information
 }
 \description{
-Takes the output from find_genes_qtls_around_markers and create plots for the frequency of each QTL type and QTL name
+Takes the output from find_genes_qtls_around_markers and create plots for the frequency of each QTL type and trait
 }

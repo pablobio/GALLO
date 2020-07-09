@@ -28,7 +28,7 @@
 
 relationship_plot<-function (qtl_file, x, y, grid.col = "gray60", degree = 90,canvas.xlim = c(-2, 2), canvas.ylim = c(-2, 2),cex, gap){
 
-  require(circlize)
+  requireNamespace("circlize")
 
   chord.matrix <- matrix(data = 0, nrow = length(unique(qtl_file[,x])), ncol = length(unique(qtl_file[, y])), dimnames = list(unique(qtl_file[,x]), unique(qtl_file[, y])))
 
@@ -45,7 +45,7 @@ relationship_plot<-function (qtl_file, x, y, grid.col = "gray60", degree = 90,ca
   circlize::circos.track(track.index = 1, panel.fun = function(x,y) {
     sector.name = get.cell.meta.data("sector.index")
 
-    circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, facing = "clockwise", niceFacing = T, adj = c(-0.1, 0.5), cex = cex, col = "black", font = 1)}, bg.border = NA)
+    circlize::circos.text(circlize::CELL_META$xcenter,  circlize::CELL_META$ylim[1],  circlize::CELL_META$sector.index, facing = "clockwise", niceFacing = T, adj = c(-0.1, 0.5), cex = cex, col = "black", font = 1)}, bg.border = NA)
 
   circlize::circos.clear()
 }

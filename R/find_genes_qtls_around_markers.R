@@ -1,11 +1,11 @@
 #' Search genes and QTLs around candidate regions
 #'
-#' Takes a list of candidate markers and or regions (haplotypes) and search for genes or QTLs in a determined interval
-#' @param db_file file with the gene mapping or QTL information. For the gene mapping, you should use the .gtf file download from Ensembl data base. For the QTL search, you need to inform the .gff file that can be downloaded from Animal QTlLdb.
-#' @param marker_file The file with the SNP or haplotype positions. Detail: For SNP files, you must have a column called “CHR” and a column called “BP” with the chromosome and base pair position, respectively. For the haplotype, you must have three columns: “CHR”, “BP1” and “BP2”. All the columns names are capitals.
+#' Takes a list of candidate markers and or regions (haplotypes, CNVs, windows, etc.) and search for genes or QTLs in a determined interval
+#' @param db_file File with the gene mapping or QTL information. For gene mapping, a .gtf file  from Ensembl database must be used. For the QTL search, a .gff file from Animal QTlLdb must be used. Both files must use the same reference annotation used in the original study
+#' @param marker_file The file with the SNP or haplotype positions. Detail: For SNP files, the collumns “CHR” and “BP” with the chromosome and base pair position, respectively, are mandatory. For the haplotype, the following collumns are mandatory: “CHR”, “BP1” and “BP2”
 #' @param method “gene” or “qtl”
 #' @param marker "snp" or "haplotype"
-#' @param interval The interval in base pair
+#' @param interval The interval in base pair which can be included upstream and downstream from the markers or haplotype coordinates.
 #' @param nThreads Number of threads to be used
 #' @return A dataframe with the genes or QTLs mapped within the specified intervals
 #' @name find_genes_qtls_around_markers

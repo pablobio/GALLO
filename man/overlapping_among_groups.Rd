@@ -7,7 +7,7 @@
 overlapping_among_groups(file, x, y)
 }
 \arguments{
-\item{file}{A dataframe with the data and grouping factor.}
+\item{file}{A dataframe with the data and grouping factor}
 
 \item{x}{The grouping factor to be compared}
 

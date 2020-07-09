@@ -1,7 +1,7 @@
 #' Overlapping between grouping factors
 #'
 #' Takes a dataframe with a column of genes, QTLs (or other data) and a grouping column and create some matrices with the ovelapping information
-#' @param file A dataframe with the data and grouping factor.
+#' @param file A dataframe with the data and grouping factor
 #' @param x The grouping factor to be compared
 #' @param y The data to be compared among the levels of the grouping factor
 #' @return A list with three matrices: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one

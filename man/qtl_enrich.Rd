@@ -17,29 +17,32 @@ qtl_enrich(
 )
 }
 \arguments{
-\item{qtl_db}{The .gff file that can be downloaded from Animal QTlLdb}
+\item{qtl_db}{The .gff file downloaded from Animal QTlLdb}
 
 \item{qtl_file}{The output from find_genes_qtls_around_markers function}
 
-\item{qtl_type}{A character indicating which type of enrichment will be performed. QTL_type indicates that the enrichment processes will be performed for the QTL classes, while trait indicates that the enrichment analysis will be performed for each trait individually.}
+\item{qtl_type}{A character indicating which type of enrichment will be performed. QTL_type indicates that the enrichment processes will be performed for the QTL classes, while trait indicates that the enrichment analysis will be performed for each trait individually}
 
-\item{enrich_type}{A character indicating if the enrichment analysis will be performed for all the chromosomes ("genome") or for a subset of chromosomes ("chromosome). If the "genome" option is selected, the results reported are the merge of all chromosomes.}
+\item{enrich_type}{A character indicating if the enrichment analysis will be performed for all the chromosomes ("genome") or for a subset of chromosomes ("chromosome). If the "genome" option is selected, the results reported are the merge of all chromosomes}
 
-\item{chr.subset}{If enrich_type equal "chromosome", it is possible to define a subset of chromosomes to be analyzed. The default is equal NULL. Therefore, all the chromosomes will be analyzed.}
+\item{chr.subset}{If enrich_type equal "chromosome", it is possible to define a subset of chromosomes to be analyzed. The default is equal NULL. Therefore, all the chromosomes will be analyzed}
 
-\item{n.it}{number of iterations for the bootstrap simulation.}
+\item{n.it}{Number of iterations for the bootstrap simulation.}
 
-\item{nThreads}{The number of threads used.}
+\item{nThreads}{The number of threads to be used.}
 
-\item{padj}{The alogorithm for multiple testing correction to be adopted ("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none").}
+\item{padj}{The alogorithm for multiple testing correction to be adopted ("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none")}
 
-\item{parallel}{The type of parallel operation to be used.}
+\item{parallel}{The type of parallel operation to be used}
 }
 \value{
 A data frame with the p-value for th enrichment result
 }
 \description{
 Takes the output from find_genes_qtls_around_markers and run a QTL enrichment analysis
+}
+\details{
+The simple bias of investigation for some traits (such as milk production related traits in the QTL database for cattle) may result in a larger proportion of records in the database. Consequently, the simple investigation of the proportion of each QTL type might not be totally useful. In order to reduce the impact of this bias, a QTL enrichment analysis can be performed. The QTL enrichment analysis performed by GALLO package is based in a bootstrapping approach, where the total number of QTLs detected in each chromosome, within the candidate windows, are used to randomly sample QTL across the genome (respecting the observed chromosomal proportion). The number of iterations for those random sampling can be defined by the user. Subsequently, the observed and expected numbers of each QTL or trait (based on the user selection), in each chromosome (or in the genome, if the option "genome" is defined in the argument enrich_type), are estimated in order to calculate the p-value. The expected number of each QTLs or traits are calculated as the mean number of observations across the iterations. The bootstrap performed by GALLO is based on the parametric bootstrap option available in the function boot() from the R package boot. As stated by the authors in the reference manual: "For the parametric bootstrap it is necessary for the user to specify how the resampling is to be conducted. The best way of accomplishing this is to specify the function ran.gen which will return a simulated data set from the observed data set and a set of parameter estimates specified in maximum likelihood estimates (https://cran.r-project.org/web/packages/boot/boot.pdf). In GALLO, the resampling function used to create the simulated data uses the total number of QTLs (per chromosome or in the whole genome) in order to subset the QTL database present in the informed .gff file.
 }
 \examples{
 data(QTLwindows)

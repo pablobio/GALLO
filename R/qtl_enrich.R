@@ -1,15 +1,16 @@
 #' Performs a QTL enrichment analysis based in a Bootstrap simulation for each QTL class
 #'
 #' Takes the output from find_genes_qtls_around_markers and run a QTL enrichment analysis
-#' @param qtl_db The .gff file that can be downloaded from Animal QTlLdb
+#' @param qtl_db The .gff file downloaded from Animal QTlLdb
 #' @param qtl_file The output from find_genes_qtls_around_markers function
-#' @param qtl_type A character indicating which type of enrichment will be performed. QTL_type indicates that the enrichment processes will be performed for the QTL classes, while trait indicates that the enrichment analysis will be performed for each trait individually.
-#' @param enrich_type A character indicating if the enrichment analysis will be performed for all the chromosomes ("genome") or for a subset of chromosomes ("chromosome). If the "genome" option is selected, the results reported are the merge of all chromosomes.
-#' @param chr.subset If enrich_type equal "chromosome", it is possible to define a subset of chromosomes to be analyzed. The default is equal NULL. Therefore, all the chromosomes will be analyzed.
-#' @param n.it number of iterations for the bootstrap simulation.
-#' @param nThreads The number of threads used.
-#' @param padj The alogorithm for multiple testing correction to be adopted ("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none").
-#' @param parallel The type of parallel operation to be used.
+#' @param qtl_type A character indicating which type of enrichment will be performed. QTL_type indicates that the enrichment processes will be performed for the QTL classes, while trait indicates that the enrichment analysis will be performed for each trait individually
+#' @param enrich_type A character indicating if the enrichment analysis will be performed for all the chromosomes ("genome") or for a subset of chromosomes ("chromosome). If the "genome" option is selected, the results reported are the merge of all chromosomes
+#' @param chr.subset If enrich_type equal "chromosome", it is possible to define a subset of chromosomes to be analyzed. The default is equal NULL. Therefore, all the chromosomes will be analyzed
+#' @param n.it Number of iterations for the bootstrap simulation.
+#' @param nThreads The number of threads to be used.
+#' @param padj The alogorithm for multiple testing correction to be adopted ("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none")
+#' @param parallel The type of parallel operation to be used
+#' @details The simple bias of investigation for some traits (such as milk production related traits in the QTL database for cattle) may result in a larger proportion of records in the database. Consequently, the simple investigation of the proportion of each QTL type might not be totally useful. In order to reduce the impact of this bias, a QTL enrichment analysis can be performed. The QTL enrichment analysis performed by GALLO package is based in a bootstrapping approach, where the total number of QTLs detected in each chromosome, within the candidate windows, are used to randomly sample QTL across the genome (respecting the observed chromosomal proportion). The number of iterations for those random sampling can be defined by the user. Subsequently, the observed and expected numbers of each QTL or trait (based on the user selection), in each chromosome (or in the genome, if the option "genome" is defined in the argument enrich_type), are estimated in order to calculate the p-value. The expected number of each QTLs or traits are calculated as the mean number of observations across the iterations. The bootstrap performed by GALLO is based on the parametric bootstrap option available in the function boot() from the R package boot. As stated by the authors in the reference manual: "For the parametric bootstrap it is necessary for the user to specify how the resampling is to be conducted. The best way of accomplishing this is to specify the function ran.gen which will return a simulated data set from the observed data set and a set of parameter estimates specified in maximum likelihood estimates (https://cran.r-project.org/web/packages/boot/boot.pdf). In GALLO, the resampling function used to create the simulated data uses the total number of QTLs (per chromosome or in the whole genome) in order to subset the QTL database present in the informed .gff file.
 #' @return A data frame with the p-value for th enrichment result
 #' @importFrom utils read.delim
 #' @importFrom stats p.adjust
@@ -58,7 +59,6 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
     stop(paste("file", qtl_db, "doesn't exists"))
   }
 
-
   if(qtl_type=="QTL_type"){
     if(enrich_type=="genome"){
       message("Staring QTL enrichment analysis for QTL class")
@@ -68,14 +68,20 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       n.qtls<-NULL
       Average_exp<-NULL
       sd_exp<-NULL
-      out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind")%dopar%{
-        tmp.class<<-qtl.file.types[k]
-        table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$QTL_type==tmp.class),"chr"]))
-        n.qtls<-nrow(qtl_file[which(qtl_file$QTL_type==tmp.class),])
+      out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind", .export = "qtl.file.types[k]")%dopar%{
+        qtl.file.types[k]<-qtl.file.types[k]
+        table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$QTL_type==qtl.file.types[k]),"chr"]))
+        n.qtls<-nrow(qtl_file[which(qtl_file$QTL_type==qtl.file.types[k]),])
 
         out.chr<-foreach::foreach(j=1:length(table.qtl$Var1),.combine="cbind")%dopar%{
           sub.qtl<-qtl[which(qtl$chr==table.qtl$Var1[j]),]
-          b <- boot(sub.qtl, resampFun, R=n.it, parallel=parallel,ncpus=nThreads,sim = "parametric",ran.gen=function(sub.qtl,p) sub.qtl[sample(1:nrow(sub.qtl), table.qtl$Freq[j],replace = T), ])
+          b <- boot(sub.qtl, function(sub.qtl,i){
+            tmp.resamp<-sub.qtl[i,]
+            n.tmp.qtl<-nrow(tmp.resamp[grep(qtl.file.types[k],tmp.resamp$QTL_type),])
+          },
+          R=n.it, parallel=parallel,ncpus=nThreads,
+          sim = "parametric",ran.gen=function(sub.qtl,p) sub.qtl[sample(1:nrow(sub.qtl),
+                                                                        table.qtl$Freq[j],replace = T), ])
           b$t
         }
         out.int<-rowSums(out.chr)
@@ -84,10 +90,10 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
         pvalue[pvalue==0]<-1
         Average_exp<-mean(out.int)
         sd_exp<-sd(out.int)
-        data.frame(QTL_type=tmp.class,Number_QTLs=n.qtls,Average_exp=Average_exp,sd_exp=sd_exp,p_value=pvalue)
+        data.frame(QTL_type=qtl.file.types[k],Number_QTLs=n.qtls,Average_exp=Average_exp,sd_exp=sd_exp,p_value=round(pvalue,3))
       }
       out.enrich$QTL_type<-gsub("_"," ", out.enrich$QTL_type)
-      out.enrich$adjpval<-p.adjust(out.enrich$p_value,method=padj,n=length(out.enrich$p_value))
+      out.enrich$adjpval<-round(p.adjust(out.enrich$p_value,method=padj,n=length(out.enrich$p_value)),3)
     }
     if(enrich_type=="chromosome"){
       message("Staring QTL enrichment analysis for QTL class")
@@ -104,9 +110,9 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       n.qtls<-NULL
       Average_exp<-NULL
       sd_exp<-NULL
-      out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind")%dopar%{
-        tmp.class<<-qtl.file.types[k]
-        table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$QTL_type==tmp.class),"chr"]))
+      out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind", .export = "qtl.file.types[k]")%dopar%{
+        qtl.file.types[k]<-qtl.file.types[k]
+        table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$QTL_type==qtl.file.types[k]),"chr"]))
 
         fake.table<-data.frame(Var1=chr.subset,Freq=rep(0,length(chr.subset)))
         fake.table[match(table.qtl.class$Var1,fake.table$Var1),"Freq"]<-table.qtl.class$Freq
@@ -116,7 +122,12 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
         out.chr<-foreach::foreach(j=table.qtl$Var1,.combine="cbind")%dopar%{
           tmp.chr<-j
           sub.qtl<-qtl[which(qtl$chr==tmp.chr),]
-          b <- boot(sub.qtl, resampFun, R=n.it, parallel=parallel,ncpus=nThreads,sim = "parametric",ran.gen=function(sub.qtl,p) sub.qtl[sample(1:nrow(sub.qtl), table.qtl[which(table.qtl$Var1==tmp.chr),"Freq"],replace = T), ])
+          b <- boot(sub.qtl, function(sub.qtl,i){
+            tmp.resamp<-sub.qtl[i,]
+            n.tmp.qtl<-nrow(tmp.resamp[grep(qtl.file.types[k],tmp.resamp$QTL_type),])
+          }, R=n.it, parallel=parallel,ncpus=nThreads,sim = "parametric",
+          ran.gen=function(sub.qtl,p) sub.qtl[sample(1:nrow(sub.qtl),
+                                                     table.qtl[which(table.qtl$Var1==tmp.chr),"Freq"],replace = T), ])
           b$t
         }
         hyp.fert<-t(apply(out.chr,1,"-",table.qtl.class[match(table.qtl$Var1,table.qtl.class$Var1),"Freq"]))
@@ -124,7 +135,7 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
         pvalue[pvalue==0]<-1
         Average_exp<-colMeans(out.chr)
         sd_exp<-apply(out.chr, 2, sd)
-        data.frame(QTL_type=rep(tmp.class,length(table.qtl.class$Var1)),Chr=table.qtl.class$Var1,Number_QTLs=table.qtl.class[match(table.qtl$Var1,table.qtl.class$Var1),"Freq"],Average_exp=Average_exp,sd_exp=sd_exp,p_value=pvalue)
+        data.frame(QTL_type=rep(qtl.file.types[k],length(table.qtl.class$Var1)),Chr=table.qtl.class$Var1,Number_QTLs=table.qtl.class[match(table.qtl$Var1,table.qtl.class$Var1),"Freq"],Average_exp=Average_exp,sd_exp=sd_exp,p_value=round(pvalue,3))
       }
       out.enrich<-out.enrich[which(out.enrich$Number_QTLs!=0),]
       out.enrich$QTL_type<-gsub("_"," ", out.enrich$QTL_type)
@@ -133,7 +144,7 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       out.enrich<-out.enrich[which(out.enrich$coord_qtl%in%qtl_file$coord_qtl),]
       out.enrich<-out.enrich[,-which(names(out.enrich)=="coord_qtl")]
       out.enrich<-out.enrich[!duplicated(out.enrich[,c("QTL_type","Chr")]),]
-      out.enrich$adjpval<-p.adjust(out.enrich$p_value,method=padj,n=length(out.enrich$p_value))
+      out.enrich$adjpval<-round(p.adjust(out.enrich$p_value,method=padj,n=length(out.enrich$p_value)),3)
     }
   }
 
@@ -147,14 +158,19 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       n.qtls<-NULL
       Average_exp<-NULL
       sd_exp<-NULL
-      out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind")%dopar%{
-        tmp.class<<-qtl.file.types[k]
-        table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$Name==tmp.class),"chr"]))
-        n.qtls<-nrow(qtl_file[which(qtl_file$Name==tmp.class),])
+      out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind", .export = "qtl.file.types[k]")%dopar%{
+        qtl.file.types[k]<-qtl.file.types[k]
+        table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$Name==qtl.file.types[k]),"chr"]))
+        n.qtls<-nrow(qtl_file[which(qtl_file$Name==qtl.file.types[k]),])
 
         out.chr<-foreach::foreach(j=1:length(table.qtl$Var1),.combine="cbind")%dopar%{
           sub.qtl<-qtl[which(qtl$chr==table.qtl$Var1[j]),]
-          b <- boot(sub.qtl, resampFun.trait, R=n.it, parallel=parallel,ncpus=nThreads,sim = "parametric",ran.gen=function(sub.qtl,p) sub.qtl[sample(1:nrow(sub.qtl), table.qtl$Freq[j],replace = T), ])
+          b <- boot(sub.qtl, function(sub.qtl,i){
+            tmp.resamp<-sub.qtl[i,]
+            n.tmp.qtl<-nrow(tmp.resamp[grep(pattern=qtl.file.types[k],x=tmp.resamp$extra_info),])
+          }, R=n.it, parallel=parallel,ncpus=nThreads,sim = "parametric",
+          ran.gen=function(sub.qtl,p) sub.qtl[sample(1:nrow(sub.qtl),
+                                                     table.qtl$Freq[j],replace = T), ])
           b$t
         }
         out.int<-rowSums(out.chr)
@@ -163,10 +179,10 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
         pvalue[pvalue==0]<-1
         Average_exp<-mean(out.int)
         sd_exp<-sd(out.int)
-        data.frame(QTL_type=tmp.class,Number_QTLs=n.qtls,Average_exp=Average_exp,sd_exp=sd_exp,p_value=pvalue)
+        data.frame(QTL_type=qtl.file.types[k],Number_QTLs=n.qtls,Average_exp=Average_exp,sd_exp=sd_exp,p_value=round(pvalue,3))
       }
       out.enrich$QTL_type<-gsub("_"," ", out.enrich$QTL_type)
-      out.enrich$adjpval<-p.adjust(out.enrich$p_value,method=padj,n=length(out.enrich$p_value))
+      out.enrich$adjpval<-round(p.adjust(out.enrich$p_value,method=padj,n=length(out.enrich$p_value)),3)
     }
     if(enrich_type=="chromosome"){
       message("Staring QTL enrichment analysis for trait")
@@ -184,9 +200,8 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
       Average_exp<-NULL
       sd_exp<-NULL
       out.enrich<-foreach::foreach(k=1:length(qtl.file.types),.combine="rbind")%dopar%{
-        tmp.class<<-qtl.file.types[k]
-        table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$Name==tmp.class),"chr"]))
-
+        qtl.file.types[k]
+        table.qtl.class<-as.data.frame(table(qtl_file[which(qtl_file$Name==qtl.file.types[k]),"chr"]))
         fake.table<-data.frame(Var1=chr.subset,Freq=rep(0,length(chr.subset)))
         fake.table[match(table.qtl.class$Var1,fake.table$Var1),"Freq"]<-table.qtl.class$Freq
         table.qtl.class<-fake.table
@@ -194,7 +209,13 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
         out.chr<-foreach::foreach(j=table.qtl$Var1,.combine="cbind")%dopar%{
           tmp.chr<-j
           sub.qtl<-qtl[which(qtl$chr==tmp.chr),]
-          b <- boot(sub.qtl, resampFun.trait, R=n.it, parallel=parallel,ncpus=nThreads,sim = "parametric",ran.gen=function(sub.qtl,p) sub.qtl[sample(1:nrow(sub.qtl), table.qtl[which(table.qtl$Var1==tmp.chr),"Freq"],replace = T), ])
+
+          b <- boot(sub.qtl, function(sub.qtl,i){
+            tmp.resamp<-sub.qtl[i,]
+            n.tmp.qtl<-nrow(tmp.resamp[grep(pattern=qtl.file.types[k],x=tmp.resamp$extra_info),])
+          }, R=n.it, parallel=parallel,ncpus=nThreads,sim = "parametric",
+          ran.gen=function(sub.qtl,p) sub.qtl[sample(1:nrow(sub.qtl),
+                                                     table.qtl[which(table.qtl$Var1==tmp.chr),"Freq"],replace = T), ])
           b$t
         }
         hyp.fert<-t(apply(out.chr,1,"-",table.qtl.class[match(table.qtl$Var1,table.qtl.class$Var1),"Freq"]))
@@ -202,7 +223,7 @@ qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","trait"),enrich_type=
         pvalue[pvalue==0]<-1
         Average_exp<-colMeans(out.chr)
         sd_exp<-apply(out.chr, 2, sd)
-        data.frame(QTL_type=rep(tmp.class,length(unique(table.qtl.class$Var1))),Chr=unique(table.qtl.class$Var1),Number_QTLs=table.qtl.class[match(table.qtl$Var1,table.qtl.class$Var1),"Freq"],Average_exp=Average_exp,sd_exp=sd_exp,p_value=pvalue)
+        data.frame(QTL_type=rep(qtl.file.types[k],length(unique(table.qtl.class$Var1))),Chr=unique(table.qtl.class$Var1),Number_QTLs=table.qtl.class[match(table.qtl$Var1,table.qtl.class$Var1),"Freq"],Average_exp=Average_exp,sd_exp=sd_exp,p_value=round(pvalue,3))
       }
       out.enrich<-out.enrich[which(out.enrich$Number_QTLs!=0),]
       out.enrich$QTL_type<-gsub("_"," ", out.enrich$QTL_type)

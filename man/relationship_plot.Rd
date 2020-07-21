@@ -35,6 +35,9 @@ relationship_plot(
 
 \item{gap}{A numeric value corresponding to the gap between the chord sectors}
 }
+\value{
+A chords relating x and y
+}
 \description{
 Takes the output from find_genes_qtls_around_markers function and creates a chord plot with the relationship between groups
 }

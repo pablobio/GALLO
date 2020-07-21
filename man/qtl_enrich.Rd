@@ -17,7 +17,7 @@ qtl_enrich(
 )
 }
 \arguments{
-\item{qtl_db}{The .gff file downloaded from Animal QTlLdb}
+\item{qtl_db}{The object obtained using the import_gff_gtf() function}
 
 \item{qtl_file}{The output from find_genes_qtls_around_markers function}
 
@@ -45,10 +45,11 @@ Takes the output from find_genes_qtls_around_markers and run a QTL enrichment an
 The simple bias of investigation for some traits (such as milk production related traits in the QTL database for cattle) may result in a larger proportion of records in the database. Consequently, the simple investigation of the proportion of each QTL type might not be totally useful. In order to reduce the impact of this bias, a QTL enrichment analysis can be performed. The QTL enrichment analysis performed by GALLO package is based in a bootstrapping approach, where the total number of QTLs detected in each chromosome, within the candidate windows, are used to randomly sample QTL across the genome (respecting the observed chromosomal proportion). The number of iterations for those random sampling can be defined by the user. Subsequently, the observed and expected numbers of each QTL or trait (based on the user selection), in each chromosome (or in the genome, if the option "genome" is defined in the argument enrich_type), are estimated in order to calculate the p-value. The expected number of each QTLs or traits are calculated as the mean number of observations across the iterations. The bootstrap performed by GALLO is based on the parametric bootstrap option available in the function boot() from the R package boot. As stated by the authors in the reference manual: "For the parametric bootstrap it is necessary for the user to specify how the resampling is to be conducted. The best way of accomplishing this is to specify the function ran.gen which will return a simulated data set from the observed data set and a set of parameter estimates specified in maximum likelihood estimates (https://cran.r-project.org/web/packages/boot/boot.pdf). In GALLO, the resampling function used to create the simulated data uses the total number of QTLs (per chromosome or in the whole genome) in order to subset the QTL database present in the informed .gff file.
 }
 \examples{
-data(QTLwindows)
-\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
-marker_file=QTLwindows,method="qtl",
-marker="haplotypes",interval=100000)}
+data(QTLmarkers)
+data(gffQTLs)
+\donttest{qtl.out <- find_genes_qtls_around_markers(db_file=gffQTLs,
+marker_file=QTLmarkers,method="qtl",
+marker="snp",interval=100000)}
 \donttest{qtl.enrich.out<-qtl_enrich(qtl_db="QTL_db.gff",
 qtl_file=qtl.out,qtl_type="QTL_type",
 enrich_type="genome",chr.subset=NULL,

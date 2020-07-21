@@ -13,33 +13,27 @@
 #'\donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",
 #'marker_file=QTLwindows,method="gene",
 #'marker="haplotypes",interval=100000)}
-#'
 #'\donttest{overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",y="gene_id")}
 #'\donttest{plot_overlapping(overlapping.out,nmatrix=2,ntext=2,group=unique(genes.out$Reference))}
 #' @export
 plot_overlapping<-function(overlapping_matrix,nmatrix,ntext,group,labelcex=1){
-  overlapping<-as.matrix(overlapping_matrix[[nmatrix]])
-  colnames(overlapping)<-group
-  rownames(overlapping)<-group
+overlapping<-as.matrix(overlapping_matrix[[nmatrix]])
+colnames(overlapping)<-group
+rownames(overlapping)<-group
 
+myPanel <- function(x, y, z, ...) {
+lattice::panel.levelplot(x,y,z,...)
+lattice::panel.text(x, y,  overlapping_matrix[[ntext]][cbind(x,y)])
+}
 
-  myPanel <- function(x, y, z, ...) {
-    lattice::panel.levelplot(x,y,z,...)
-    lattice::panel.text(x, y,  overlapping_matrix[[ntext]][cbind(x,y)])
-  }
+x.scale <- list(cex=labelcex, alternating=1, col='black',rot=90)
+y.scale <- list(cex=labelcex, alternating=1, col='black')
 
-
-  x.scale <- list(cex=labelcex, alternating=1, col='black',rot=90)
-  y.scale <- list(cex=labelcex, alternating=1, col='black')
-
-  if(nmatrix==1){
-  my_palette <- colorRampPalette(c("white", "red"))(n = max(overlapping))
-  lattice::levelplot(overlapping, panel=myPanel,xlab="",ylab="",col.regions=my_palette,at=seq(0,max(overlapping),1),scales=list(x=x.scale, y=y.scale,tck = c(1,0)))
-  }
-
-  else{
-    my_palette <- colorRampPalette(c("white", "red"))(n = 1000)
-    lattice::levelplot(overlapping, panel=myPanel,xlab="",ylab="",col.regions=my_palette,at=seq(0,1,0.01),scales=list(x=x.scale, y=y.scale,tck = c(1,0)))
-  }
-
+    if(nmatrix==1){
+    my_palette <- colorRampPalette(c("white", "red"))(n = max(overlapping))
+    lattice::levelplot(overlapping, panel=myPanel,xlab="",ylab="",col.regions=my_palette,at=seq(0,max(overlapping),1),scales=list(x=x.scale, y=y.scale,tck = c(1,0)))
+    }else{
+        my_palette <- colorRampPalette(c("white", "red"))(n = 1000)
+        lattice::levelplot(overlapping, panel=myPanel,xlab="",ylab="",col.regions=my_palette,at=seq(0,1,0.01),scales=list(x=x.scale, y=y.scale,tck = c(1,0)))
+    }
 }

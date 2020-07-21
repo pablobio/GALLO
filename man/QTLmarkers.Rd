@@ -19,7 +19,7 @@ A data frame with 50 rows and 6 variables:
 data(QTLmarkers)
 }
 \description{
-bData from a systematic review which evaluated 18 articles regarding genome-wide association studies for male fertility traits in beef and dairy cattle
+Data from a systematic review which evaluated 18 articles regarding genome-wide association studies for male fertility traits in beef and dairy cattle
 }
 \examples{
 data(QTLmarkers)

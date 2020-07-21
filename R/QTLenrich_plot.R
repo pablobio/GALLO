@@ -14,12 +14,14 @@
 #' @importFrom ggplot2 element_text
 #' @importFrom ggplot2 element_blank
 #' @importFrom ggplot2 labs
+#' @return A plot with the QTL enrichment results
 #' @examples
-#' data(QTLwindows)
-#'\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
-#'marker_file=QTLwindows,method="qtl",
-#'marker="haplotypes",interval=100000)}
-#'\donttest{qtl.enrich.out<-qtl_enrich(qtl_db="QTL_db.gff",
+#' data(QTLmarkers)
+#' data(gffQTLs)
+#'\donttest{qtl.out <- find_genes_qtls_around_markers(db_file=gffQTLs,
+#'marker_file=QTLmarkers,method="qtl",
+#'marker="snp",interval=100000)}
+#'\donttest{qtl.enrich.out<-qtl_enrich(qtl_db=gffQTLs,
 #'qtl_file=qtl.out,qtl_type="QTL_type",
 #'enrich_type="genome",chr.subset=NULL,
 #'n.it=1000,padj="fdr")}
@@ -27,8 +29,6 @@
 #'@export
 
 QTLenrich_plot<-function(qtl_enrich,x,pval){
-  pvalue<-qtl_enrich[,pval]
-  ggplot(qtl_enrich,aes(x=(qtl_enrich[,"Number_QTLs"]/qtl_enrich[,"Average_exp"]), y=qtl_enrich[,x], size=qtl_enrich[,"Number_QTLs"], color=-log10(pvalue))) +
-    geom_point(alpha=0.8) + scale_color_gradient2(low="white", high="red") +
-    scale_size(range = c(.1, 24), name="Number of QTLs") + theme_gray(base_size = 14) +  theme(axis.title.x=element_text(size=15),axis.text.x=element_text(size=15),axis.ticks.x=element_blank(),axis.title.y=element_blank(),axis.text.y=element_text(size=15)) + labs(x="Richness factor")
+pvalue<-qtl_enrich[,pval]
+ggplot(qtl_enrich,aes(x=(qtl_enrich[,"N_QTLs"]/qtl_enrich[,"N_QTLs_db"]), y=qtl_enrich[,x], size=qtl_enrich[,"N_QTLs"], color=-log10(pvalue))) + geom_point(alpha=0.8) + scale_color_gradient2(low="white", high="red") + scale_size(range = c(.1, 24), name="Number of QTLs") + theme_gray(base_size = 14) +  theme(axis.title.x=element_text(size=15),axis.text.x=element_text(size=15),axis.ticks.x=element_blank(),axis.title.y=element_blank(),axis.text.y=element_text(size=15)) + labs(x="Richness factor")
 }

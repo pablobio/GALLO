@@ -1,14 +1,15 @@
 #'Candidate markers identified by GWAS associated with fertility traits in cattle
 #'
-#'bData from a systematic review which evaluated 18 articles regarding genome-wide association studies for male fertility traits in beef and dairy cattle
+#'Data from a systematic review which evaluated 18 articles regarding genome-wide association studies for male fertility traits in beef and dairy cattle
 #'
 #'@docType data
 #'
 #'@usage data(QTLmarkers)
 #'
-#'@format A data frame with 50 rows and 6 variables:
+#'@format A data frame with 141 rows and 7 variables:
 #'\itemize{
 #'  \item Associated.marker: Significantly associated marker
+#'  \item SNP.reference: The rs ID when available
 #'  \item Trait: Trait associated
 #'  \item CHR: Chromosome
 #'  \item BP: Chromosomal position in base pairs (bovine reference assembly UMD3.1)

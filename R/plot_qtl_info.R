@@ -11,6 +11,13 @@
 #' @importFrom graphics legend
 #' @importFrom graphics barplot
 #' @importFrom RColorBrewer brewer.pal
+#' @examples
+#' data(QTLwindows)
+#'\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
+#'marker_file=QTLwindows,method="qtl",
+#'marker="haplotypes",interval=100000)}
+#'\donttest{par(mar=c(1,30,1,1))}
+#'\donttest{plot_qtl_info(qtl.out, qtl_plot = "qtl_type", cex=2)}
 #' @export
 plot_qtl_info<-function(qtl_file,qtl_plot=c("qtl_type","qtl_name"), n="all",qtl_class=NULL,...){
   #check method
@@ -33,7 +40,7 @@ plot_qtl_info<-function(qtl_file,qtl_plot=c("qtl_type","qtl_name"), n="all",qtl_
   if(qtl_plot=="qtl_name"){
     data.prop<-as.data.frame(table(qtl_file$Name))
     data.prop$percentage<-c(round(((data.prop[,2])/sum(data.prop[,2]))*100,2))
-    data.prop<-data.prop[order(data.prop$percentage, decreasing=T),]
+    data.prop<-data.prop[order(data.prop$percentage, decreasing=TRUE),]
     if(length(which(qtl_class %in% "all"))!=0){
 
       if(n=="all"){
@@ -41,7 +48,7 @@ plot_qtl_info<-function(qtl_file,qtl_plot=c("qtl_type","qtl_name"), n="all",qtl_
       }else{
         n_final<-n
       }
-      barplot(data.prop$percentage[1:n_final], names.arg=data.prop$Var1[1:n_final],horiz=T, xlab="QTL Names (%)", las=1, xlim=c(0,round((max(data.prop$percentage[1:n_final])+0.5),0)), ...)
+      barplot(data.prop$percentage[seq_along(1:n_final)], names.arg=data.prop$Var1[seq_along(1:n_final)],horiz=TRUE, xlab="QTL Names (%)", las=1, xlim=c(0,round((max(data.prop$percentage[seq_along(1:n_final)])+0.5),0)), ...)
 
     }
 
@@ -50,7 +57,7 @@ plot_qtl_info<-function(qtl_file,qtl_plot=c("qtl_type","qtl_name"), n="all",qtl_
       qtl_file<-qtl_file[-duplicated(qtl_file[,c("QTL_type","Name")]),]
       data.prop$qtl_type<-qtl_file[match(as.character(data.prop[,1]),as.character(qtl_file$Name)),"QTL_type"]
       data.prop$percentage<-c(round(((data.prop[,2])/sum(data.prop[,2]))*100,2))
-      data.prop<-data.prop[order(data.prop$percentage, decreasing=T),]
+      data.prop<-data.prop[order(data.prop$percentage, decreasing=TRUE),]
       data.prop<-data.prop[which(data.prop$qtl_type %in% qtl_class),]
 
       if(n=="all"){
@@ -59,7 +66,7 @@ plot_qtl_info<-function(qtl_file,qtl_plot=c("qtl_type","qtl_name"), n="all",qtl_
         n_final<-n
       }
 
-      barplot(data.prop$percentage[1:n_final], names.arg=data.prop$Var1[1:n_final],horiz=T, xlab="QTL Names (%)", las=1, xlim=c(0,round((max(data.prop$percentage[1:n_final])+0.5),0)),...)
+      barplot(data.prop$percentage[seq_along(1:n_final)], names.arg=data.prop$Var1[seq_along(1:n_final)],horiz=TRUE, xlab="QTL Names (%)", las=1, xlim=c(0,round((max(data.prop$percentage[seq_along(1:n_final)])+0.5),0)),...)
 
     }
   }

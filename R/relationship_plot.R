@@ -18,6 +18,7 @@
 #' @importFrom circlize circos.text
 #' @importFrom graphics par
 #' @importFrom unbalhaar uh
+#' @return A chords relating x and y
 #' @examples
 #' data(QTLwindows)
 #'\donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",marker_file=QTLwindows,method="gene",
@@ -27,25 +28,17 @@
 #' @export
 
 relationship_plot<-function (qtl_file, x, y, grid.col = "gray60", degree = 90,canvas.xlim = c(-2, 2), canvas.ylim = c(-2, 2),cex, gap){
+requireNamespace("circlize")
+chord.matrix <- matrix(data = 0, nrow = length(unique(qtl_file[,x])), ncol = length(unique(qtl_file[, y])), dimnames = list(unique(qtl_file[,x]), unique(qtl_file[, y])))
 
-  requireNamespace("circlize")
-
-  chord.matrix <- matrix(data = 0, nrow = length(unique(qtl_file[,x])), ncol = length(unique(qtl_file[, y])), dimnames = list(unique(qtl_file[,x]), unique(qtl_file[, y])))
-
-  for (i in 1:nrow(chord.matrix)) {
+    for (i in seq_along(1:nrow(chord.matrix))) {
     pos.col <- which(colnames(chord.matrix) %in% qtl_file[which(qtl_file[,x] == rownames(chord.matrix)[i]), y])
     chord.matrix[i, pos.col] <- 1
-  }
-
-  par(mar = c(0, 0, 0, 0))
-
-  circlize::circos.par(gap.after = c(rep(gap, nrow(chord.matrix) - 1), length(unique(qtl_file[, x])), rep(gap, ncol(chord.matrix) - 1), length(unique(qtl_file[, x]))), start.degree = degree, clock.wise = FALSE, canvas.xlim = canvas.xlim, canvas.ylim = canvas.ylim, track.height = 0.5)
-
-  circlize::chordDiagram(t(chord.matrix), order = c(rownames(chord.matrix), colnames(chord.matrix)), grid.col = grid.col, transparency = 0, annotationTrack = "grid", h.ratio = 0.8, diffHeight = -uh(1, "mm"), annotationTrackHeight = c(0.01, 0.05))
-  circlize::circos.track(track.index = 1, panel.fun = function(x,y) {
-    sector.name = get.cell.meta.data("sector.index")
-
-    circlize::circos.text(circlize::CELL_META$xcenter,  circlize::CELL_META$ylim[1],  circlize::CELL_META$sector.index, facing = "clockwise", niceFacing = T, adj = c(-0.1, 0.5), cex = cex, col = "black", font = 1)}, bg.border = NA)
-
-  circlize::circos.clear()
+    }
+par(mar = c(0, 0, 0, 0))
+circlize::circos.par(gap.after = c(rep(gap, nrow(chord.matrix) - 1), length(unique(qtl_file[, x])), rep(gap, ncol(chord.matrix) - 1), length(unique(qtl_file[, x]))), start.degree = degree, clock.wise = FALSE, canvas.xlim = canvas.xlim, canvas.ylim = canvas.ylim, track.height = 0.5)
+circlize::chordDiagram(t(chord.matrix), order = c(rownames(chord.matrix), colnames(chord.matrix)), grid.col = grid.col, transparency = 0, annotationTrack = "grid", h.ratio = 0.8, diffHeight = -uh(1, "mm"), annotationTrackHeight = c(0.01, 0.05))
+circlize::circos.track(track.index = 1, panel.fun = function(x,y) {sector.name = get.cell.meta.data("sector.index")
+circlize::circos.text(circlize::CELL_META$xcenter,  circlize::CELL_META$ylim[1],  circlize::CELL_META$sector.index, facing = "clockwise", niceFacing = TRUE, adj = c(-0.1, 0.5), cex = cex, col = "black", font = 1)}, bg.border = NA)
+circlize::circos.clear()
 }

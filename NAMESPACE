@@ -2,6 +2,7 @@
 
 export(QTLenrich_plot)
 export(find_genes_qtls_around_markers)
+export(import_gff_gtf)
 export(overlapping_among_groups)
 export(plot_overlapping)
 export(plot_qtl_info)

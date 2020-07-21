@@ -4,14 +4,14 @@
 \alias{sub_genes_markers}
 \title{Sub-function to search genes around candidate markers}
 \usage{
-sub_genes_markers(chr_list, gene, markers, nThreads = NULL, int = 0)
+sub_genes_markers(chr_list, db_file, marker_file, nThreads = NULL, int = 0)
 }
 \arguments{
 \item{chr_list}{"Object with the chromosomes to be analyzed"}
 
-\item{gene}{Data frame with the information from .gtf file}
+\item{db_file}{Data frame with the information from .gtf file}
 
-\item{markers}{Data frame with the information from the candidate regions file}
+\item{marker_file}{Data frame with the information from the candidate regions file}
 
 \item{nThreads}{The number of threads to be used}
 

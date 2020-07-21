@@ -14,7 +14,7 @@ find_genes_qtls_around_markers(
 )
 }
 \arguments{
-\item{db_file}{File with the gene mapping or QTL information. For gene mapping, a .gtf file  from Ensembl database must be used. For the QTL search, a .gff file from Animal QTlLdb must be used. Both files must use the same reference annotation used in the original study}
+\item{db_file}{The dataframe obtained using the import_gff_gtf() function}
 
 \item{marker_file}{The file with the SNP or haplotype positions. Detail: For SNP files, the collumns “CHR” and “BP” with the chromosome and base pair position, respectively, are mandatory. For the haplotype, the following collumns are mandatory: “CHR”, “BP1” and “BP2”}
 

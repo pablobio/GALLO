@@ -1,6 +1,6 @@
 Package: GALLO
 Title: Genomic Annotation in Livestock for positional candidate LOci
-Version: 0.99
+Version: 0.99.0
 Authors@R: 
     c(person(given = "Pablo",
            family = "Fonseca",
@@ -8,8 +8,8 @@ Authors@R:
            email = "pfonseca@uoguelph.ca"), person("Aroa", "Suarez-Vega", email = "asuarezv@uoguelph.ca", role = "aut"),person("Gabriele", "Marras", email = "gmarras@semex.com", role = "aut"),person("Angela", "Cánovas", email = "acanovas@uoguelph.ca", role = "aut"))
 Description: Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an R package, for the accurate annotation of genes and Quantitative Trait Loci (QTLs) located within candidate markers and/or regions (haplotypes, windows, CNVs, etc) identified in the most common genomic analyses performed in livestock, such as Genome-Wide Association Studies or transcriptomics. Moreover, GALLO allows the graphical visualization of gene and QTL annotation results, data comparison among different grouping factors (e.g., methods, breeds, tissues, statistical models, studies, etc.), and QTL enrichment in different livestock species including cattle, pigs, sheep, and chicken, among others.
 Depends: R (>= 3.5.0)
-biocViews:
-Imports: boot, circlize, data.table, doParallel , dplyr , DT, dynamicTreeCut, ggplot2, graphics, grDevices, foreach, lattice , parallel, RColorBrewer, rtracklayer, unbalhaar, utils
+biocViews: Software
+Imports: circlize, data.table, doParallel, dplyr, dynamicTreeCut, ggplot2, graphics, grDevices, foreach, lattice , parallel, RColorBrewer, rtracklayer, stats, unbalhaar, utils
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

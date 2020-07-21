@@ -4,14 +4,14 @@
 \alias{sub_qtl_windows}
 \title{Sub-function to search QTLs around candidate markers}
 \usage{
-sub_qtl_windows(chr_list, qtl, markers, nThreads = NULL, int = 0)
+sub_qtl_windows(chr_list, db_file, marker_file, nThreads = NULL, int = 0)
 }
 \arguments{
 \item{chr_list}{"Object with the chromosomes to be analyzed"}
 
-\item{qtl}{Data frame with the information from .gff file}
+\item{db_file}{Data frame with the information from .gff file}
 
-\item{markers}{Data frame with the information from the candidate regions file}
+\item{marker_file}{Data frame with the information from the candidate regions file}
 
 \item{nThreads}{The number of threads to be used}
 

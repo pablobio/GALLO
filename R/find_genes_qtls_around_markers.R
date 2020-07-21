@@ -1,7 +1,7 @@
 #' Search genes and QTLs around candidate regions
 #'
 #' Takes a list of candidate markers and or regions (haplotypes, CNVs, windows, etc.) and search for genes or QTLs in a determined interval
-#' @param db_file File with the gene mapping or QTL information. For gene mapping, a .gtf file  from Ensembl database must be used. For the QTL search, a .gff file from Animal QTlLdb must be used. Both files must use the same reference annotation used in the original study
+#' @param db_file The dataframe obtained using the import_gff_gtf() function
 #' @param marker_file The file with the SNP or haplotype positions. Detail: For SNP files, the collumns “CHR” and “BP” with the chromosome and base pair position, respectively, are mandatory. For the haplotype, the following collumns are mandatory: “CHR”, “BP1” and “BP2”
 #' @param method “gene” or “qtl”
 #' @param marker "snp" or "haplotype"
@@ -19,105 +19,39 @@
 #' @export
 
 find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qtl"),marker=c("snp","haplotype"),interval=0,nThreads=NULL){
-  options(stringsAsFactors = F)
-  interval=interval
-  nThreads=nThreads
-  method <- match.arg(method)
-  message(paste("You are using the method:", method, "with", marker))
-  cat("\n")
-  if(marker=="snp"){
+    options(stringsAsFactors = F)
+    interval=interval
+    nThreads=nThreads
+    method <- match.arg(method)
+    message(paste("You are using the method:", method, "with", marker))
+    cat("\n")
+    if(marker=="snp"){
     #Creating gene data frame
-    if (method=="gene"){
-
-      if (!(file.exists(db_file))){
-        stop(paste("file ", db_file, " doesn't exists"))
-      }
-
-
-      markers=marker_file
-
-      gtf.file<-rtracklayer::import(db_file)
-      gtf.file<-as.data.frame(gtf.file)
-      gene<-gtf.file[which(gtf.file$type=="gene"),]
-      gene<-gene[,c("seqnames","start","end","width","strand","gene_id","gene_name","gene_biotype")]
-      colnames(gene)[c(1,2,3)]<-c("chr","start_pos","end_pos")
-      gene$chr<-as.character(gene$chr)
-      output_genes<-NULL
-      out_final<-NULL
-      cat("\n")
-      message(paste("Starting Gene searching using ", interval, " bp", " as interval", sep=""))
-
-      chr_list<-unique(markers$CHR)
-      output.final<-sub_genes_markers(chr_list,gene,markers,nThreads=nThreads,int=interval)
-    }else {
-
-      if (file.exists(db_file)){
-        qtl=read.delim(db_file, header=F, comment.char="#")
-        qtl<-qtl[,c(1:5,9)]
-        names(qtl)<-c("chr", "database","QTL_type", "start_pos", "end_pos","extra_info")
-        qtl$chr<-gsub("Chr.", "", qtl$chr)
-        qtl<-qtl[!is.na(qtl$chr),]
-        qtl<-qtl[!is.na(qtl$start_pos),]
-        qtl<-qtl[!is.na(qtl$end_pos),]
-      }else{
-        stop(paste("file", marker_file, "doesn't exists"))
-      }
-
-      markers=marker_file
-      message(paste("Starting QTL searching using ", interval, " bp", " as interval", sep=""))
-
-      chr_list<-unique(markers$CHR)
-      output.final<-sub_qtl_markers(chr_list,qtl,markers,nThreads=nThreads,int=interval)
-
-      cat("\n")
-      message("Preparing output file for QTL annotation")
-      cat("\n")
-      output.final<-splitQTL_comment(output.final)
-    }
-  }else{
+        if (method=="gene"){
+            chr_list<-unique(marker_file$CHR)
+            output.final<-sub_genes_markers(chr_list,db_file,marker_file,nThreads=nThreads,int=interval)
+        }else {
+            message(paste("Starting QTL searching using ", interval, " bp", " as interval", sep=""))
+            chr_list<-unique(marker_file$CHR)
+            output.final<-sub_qtl_markers(chr_list,db_file,marker_file,nThreads=nThreads,int=interval)
+            cat("\n")
+            message("Preparing output file for QTL annotation")
+            cat("\n")
+            output.final<-splitQTL_comment(output.final)
+        }
+        }else{
 
     if (method=="gene"){
-
-      if (!(file.exists(db_file))){
-        stop(paste("file", db_file, "doesn't exists"))
-      }
-      markers=marker_file
-
-      #read gtf file
-      gtf.file<-rtracklayer::import(db_file)
-      gtf.file<-as.data.frame(gtf.file)
-      gene<-gtf.file[which(gtf.file$type=="gene"),]
-      gene<-gene[,c("seqnames","start","end","width","strand","gene_id","gene_name","gene_biotype")]
-      colnames(gene)[c(1,2,3)]<-c("chr","start_pos","end_pos")
-      gene$chr<-as.character(gene$chr)
-      output_genes<-NULL
-      cat("\n")
-      message(paste("Starting Gene searching using ", interval, " bp", " as interval", sep=""))
-
-      chr_list<-unique(markers$CHR)
-      output.final<-sub_genes_windows(chr_list,gene,markers,nThreads=nThreads,int=interval)
+        chr_list<-unique(marker_file$CHR)
+        output.final<-sub_genes_windows(chr_list,db_file,marker_file,nThreads=nThreads,int=interval)
     }else{
-      if (file.exists(db_file)){
-        qtl=read.delim(db_file, header=F, comment.char="#")
-        qtl<-qtl[,c(1:5,9)]
-        names(qtl)<-c("chr", "database","QTL_type", "start_pos", "end_pos","extra_info")
-        qtl$chr<-gsub("Chr.", "", qtl$chr)
-        qtl<-qtl[!is.na(qtl$chr),]
-        qtl<-qtl[!is.na(qtl$start_pos),]
-        qtl<-qtl[!is.na(qtl$end_pos),]
-      }else{
-        stop(paste("file", marker_file, "doesn't exists"))
+        message(paste("Starting QTL searching using ", interval, " bp", " as interval", sep=""))
+        chr_list<-unique(marker_file$CHR)
+        output.final<-sub_qtl_windows(chr_list,db_file,marker_file,nThreads=nThreads,int=interval)
+        cat("\n")
+        message("Preparing output file for QTL annotation")
+        output.final<-splitQTL_comment(output.final)
+   }
       }
-
-      markers=marker_file
-      message(paste("Starting QTL searching using ", interval, " bp", " as interval", sep=""))
-      chr_list<-unique(markers$CHR)
-      output.final<-sub_qtl_windows(chr_list,qtl,markers,nThreads=nThreads,int=interval)
-      cat("\n")
-      message("Preparing output file for QTL annotation")
-      cat("\n")
-      output.final<-splitQTL_comment(output.final)
-    }
-  }
   return(as.data.frame(output.final))
 }

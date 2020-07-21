@@ -13,15 +13,19 @@ QTLenrich_plot(qtl_enrich, x, pval)
 
 \item{pval}{P-value to be used in the plot. If "p_value" informed, a non-adjusted pvalue will be plot. If "padj" informed, the adjusted p-value from the qtl enrichment analysis will be plotted.}
 }
+\value{
+A plot with the QTL enrichment results
+}
 \description{
 Takes the output from qtl_enrich function and creates a bubble plot with enrichment results
 }
 \examples{
-data(QTLwindows)
-\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
-marker_file=QTLwindows,method="qtl",
-marker="haplotypes",interval=100000)}
-\donttest{qtl.enrich.out<-qtl_enrich(qtl_db="QTL_db.gff",
+data(QTLmarkers)
+data(gffQTLs)
+\donttest{qtl.out <- find_genes_qtls_around_markers(db_file=gffQTLs,
+marker_file=QTLmarkers,method="qtl",
+marker="snp",interval=100000)}
+\donttest{qtl.enrich.out<-qtl_enrich(qtl_db=gffQTLs,
 qtl_file=qtl.out,qtl_type="QTL_type",
 enrich_type="genome",chr.subset=NULL,
 n.it=1000,padj="fdr")}

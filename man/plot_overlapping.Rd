@@ -24,10 +24,11 @@ A heatmap with the overlapping between groups
 Takes the output from overlapping_amoung_groups function and creates a heatmap with the overlapping between groups
 }
 \examples{
-#' data(QTLwindows)
-\donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",
-marker_file=QTLwindows,method="gene",
-marker="haplotypes",interval=100000)}
-\donttest{overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",y="gene_id")}
-\donttest{plot_overlapping(overlapping.out,nmatrix=2,ntext=2,group=unique(genes.out$Reference))}
+data(QTLmarkers)
+data(gtfGenes)
+genes.out <- find_genes_qtls_around_markers(db_file=gtfGenes,
+marker_file=QTLmarkers,method="gene",
+marker="snp",interval=100000, nThreads=2)
+overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",y="gene_id")
+plot_overlapping(overlapping.out,nmatrix=2,ntext=2,group=unique(genes.out$Reference))
 }

@@ -18,6 +18,5 @@ A dataframe with the gtf or gtf content
 Takes a .gft or .gff file and import into a dataframe
 }
 \examples{
-\donttest{qtl.inp <- import_gff_gtf(db_file="QTL_db.gff",file_type="gff")}
-\donttest{head(qtl.inp)}
+\dontrun{qtl.inp <- import_gff_gtf(db_file="QTL_db.gff",file_type="gff")}
 }

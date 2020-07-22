@@ -23,11 +23,6 @@ Data from the Animal QTLdb comprasing the bovine QTL annotation
 }
 \examples{
 data(gffQTLs)
-data(QTLmarkers)
-\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="gffQTLs",
-marker_file=QTLmarkers,method="qtl",
-marker="snp",interval=100000)}
-\donttest{head(qtl.out)}
 }
 \keyword{datasets}
 \keyword{internal}

@@ -25,7 +25,7 @@ vignette: >
   %\VignetteIndexEntry{GALLO} 
   %\VignetteEngine{knitr::rmarkdown} 
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{DT} 
+  %\VignetteDepends{DT}
 ---
 
 ```{r, include = FALSE}
@@ -145,13 +145,7 @@ In a conventional routine analysis, both .gff and .gtf files can be imported usi
 #qtf.inp <- import_gff_gtf(db_file="Gene_db.gtf",file_type="gtf")
 ```
 \vspace{12pt}
-The main function of GALLO, find_genes_qtls_around_markers(), is responsible to perform the annotation of genes and/or co-localized QTLs within or nearby candidate markers or genomic regions (using a user’s defined interval/window). This function uses the information provided in the __.gtf file (for gene annotation)__ or __.gff (for QTL annotation)__ to retrieve the requested information.
-
-For the current examples, these files can be downloaded from:
-
-+ _.gft:_ ftp://ftp.ensembl.org/pub/release-94/gtf/bos_taurus/
-
-+ _.gff:_ https://www.animalgenome.org/cgi-bin/QTLdb/BT/index
+The main function of GALLO, find_genes_qtls_around_markers(), is responsible to perform the annotation of genes and/or co-localized QTLs within or nearby candidate markers or genomic regions (using a user’s defined interval/window). This function uses the information provided in the __.gtf file (for gene annotation)__ or __.gff (for QTL annotation)__ to retrieve the requested information. The gtf files can be downloaded from the Ensembl database and the gff file from the Animal QTLdb.
 
 \vspace{12pt}
 
@@ -183,7 +177,7 @@ For example, let`s run a gene and QTL annotation using the QTLwindows dataset wi
 #Running gene annotation
 out.genes<-find_genes_qtls_around_markers(db_file=gtfGenes,
 marker_file=QTLmarkers, method = "gene", 
-marker = "snp", interval = 500000, nThreads = NULL)
+marker = "snp", interval = 500000, nThreads = 2)
 
 #Checking the first rows from the output file
 DT::datatable(out.genes, rownames = FALSE, 
@@ -204,7 +198,7 @@ The gene annotation resulted in 652 genes within the 1 Mb interval (500 Kb upstr
 #Running QTL annotation
 out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 marker_file=QTLmarkers, method = "qtl",
-marker = "snp", interval = 500000, nThreads = NULL)
+marker = "snp", interval = 500000, nThreads = 2)
 
 #Checking the first rows from the output file
 DT::datatable(out.qtls, rownames = FALSE, 
@@ -391,7 +385,7 @@ _This step might take some minutes to run depending of the user`s system._
 out.enrich<-qtl_enrich(qtl_db=gffQTLs, 
                        qtl_file=out.qtls, qtl_type = "Name",
                        enrich_type = "chromosome", chr.subset = NULL, 
-                       padj = "fdr",nThreads = 3)
+                       padj = "fdr",nThreads = 2)
 
 #Checking the enriched QTLs
 DT::datatable(out.enrich[order(out.enrich$pvalue),], 

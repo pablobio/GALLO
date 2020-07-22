@@ -42,9 +42,29 @@ A chords relating x and y
 Takes the output from find_genes_qtls_around_markers function and creates a chord plot with the relationship between groups
 }
 \examples{
-data(QTLwindows)
-\donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",marker_file=QTLwindows,method="gene",
-marker="haplotypes",interval=100000)}
-\donttest{relationship_plot(qtl_file=genes.out,x="Reference",
-y="gene_id")}
+\donttest{data(QTLmarkers)
+data(gffQTLs)
+out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
+marker_file=QTLmarkers, method = "qtl",
+marker = "snp", interval = 500000, nThreads = 2)
+out.enrich<-qtl_enrich(qtl_db=gffQTLs, qtl_file=out.qtls,
+qtl_type = "Name", enrich_type = "chromosome",
+chr.subset = NULL, padj = "fdr",nThreads = 2)
+out.enrich$ID<-paste(out.enrich$QTL," - ","CHR",out.enrich$CHR,sep="")
+out.enrich.filtered<-out.enrich[which(out.enrich$adj.pval<0.05),]
+out.qtls$ID<-paste(out.qtls$Name," - ","CHR",out.qtls$CHR,sep="")
+out.enrich.filtered<-out.enrich.filtered[order(out.enrich.filtered$adj.pval),]
+out.qtls.filtered<-out.qtls[which(out.qtls$ID\%in\%out.enrich.filtered$ID[1:10]),]
+out.qtls.filtered[which(out.qtls.filtered$Reference==
+"Feugang et al. (2010)"), "color_ref"]<-"purple"
+out.qtls.filtered[which(out.qtls.filtered$Reference==
+"Buzanskas et al. (2017)"),"color_ref"]<-"pink"
+color.grid<-c(rep("black",length(unique(out.qtls.filtered$Abbrev))),
+unique(out.qtls.filtered$color_ref))
+names(color.grid)<-c(unique(out.qtls.filtered$Abbrev),
+unique(out.qtls.filtered$Reference))
+relationship_plot(qtl_file=out.qtls.filtered, x="Abbrev",
+y="Reference",cex=1,gap=5,degree = 90,
+canvas.xlim = c(-5, 5), canvas.ylim = c(-3, 3),
+grid.col = color.grid)}
 }

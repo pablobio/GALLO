@@ -30,10 +30,11 @@ A plot with the requested information
 Takes the output from find_genes_qtls_around_markers and create plots for the frequency of each QTL type and trait
 }
 \examples{
-data(QTLwindows)
-\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
-marker_file=QTLwindows,method="qtl",
-marker="haplotypes",interval=100000)}
-\donttest{par(mar=c(1,30,1,1))}
-\donttest{plot_qtl_info(qtl.out, qtl_plot = "qtl_type", cex=2)}
+data(QTLmarkers)
+data(gffQTLs)
+out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
+marker_file=QTLmarkers, method = "qtl",
+marker = "snp", interval = 500000, nThreads = 2)
+par(mar=c(1,30,1,1))
+plot_qtl_info(out.qtls, qtl_plot = "qtl_type", cex=2)
 }

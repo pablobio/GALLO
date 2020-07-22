@@ -6,18 +6,29 @@
 \usage{
 sub_qtlEnrich_geno(
   qtl_file,
+  qtl_type,
   qtl.file.types,
-  table.qtl,
+  table.qtl.class,
+  padj,
   qtl_db,
-  parallel,
-  n.it,
+  search_qtl,
   nThreads
 )
 }
 \arguments{
 \item{qtl_file}{The output from find_genes_qtls_around_markers function}
 
+\item{qtl_type}{A string indicating with QTL enrichment will be performed: "QTL_type" or "Name"}
+
 \item{qtl.file.types}{A vector with the observed QTL classes}
+
+\item{table.qtl.class}{An frequency table for the number of each QTL in each chromosome}
+
+\item{qtl_db}{The QTL annotation database}
+
+\item{search_qtl}{The column to perform the QTL searching in counting from the QTL annotation database}
+
+\item{nThreads}{Number of threads for parallel processing}
 }
 \value{
 A data frame with the p-value for th enrichment result

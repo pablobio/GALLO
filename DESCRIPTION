@@ -1,5 +1,5 @@
 Package: GALLO
-Title: Genomic Annotation in Livestock for positional candidate LOci
+Title: Genomic Annotation in Livestock for Positional Candidate LOci
 Version: 0.99.0
 Authors@R: 
     c(person(given = "Pablo",
@@ -9,7 +9,7 @@ Authors@R:
 Description: Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an R package, for the accurate annotation of genes and Quantitative Trait Loci (QTLs) located within candidate markers and/or regions (haplotypes, windows, CNVs, etc) identified in the most common genomic analyses performed in livestock, such as Genome-Wide Association Studies or transcriptomics. Moreover, GALLO allows the graphical visualization of gene and QTL annotation results, data comparison among different grouping factors (e.g., methods, breeds, tissues, statistical models, studies, etc.), and QTL enrichment in different livestock species including cattle, pigs, sheep, and chicken, among others.
 Depends: R (>= 3.5.0)
 biocViews: Software
-Imports: circlize, data.table, doParallel, dplyr, dynamicTreeCut, ggplot2, graphics, grDevices, foreach, lattice , parallel, RColorBrewer, rtracklayer, stats, unbalhaar, utils
+Imports: circlize, DT, data.table, doParallel, dplyr, dynamicTreeCut, ggplot2, graphics, grDevices, foreach, lattice , parallel, RColorBrewer, rtracklayer, stats, stringr, unbalhaar, utils
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

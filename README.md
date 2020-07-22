@@ -6,7 +6,7 @@ The Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an 
 
 *Depends:* R (>= 3.5.0)
 
-*Imports:* rtracklayer, data.table, doParallel, parallel, foreach, lattice, utils, graphics, dplyr, grDevices, boot, RColorBrewer, circlize, dynamicTreeCut, ggplot2, unbalhaar
+*Imports:* circlize, DT, data.table, doParallel, dplyr, dynamicTreeCut, ggplot2, graphics, grDevices, foreach, lattice , parallel, RColorBrewer, rtracklayer, stats, stringr, unbalhaar, utils
 
 License: GPL-3
 
@@ -29,30 +29,25 @@ install_github("pablobio/GALLO")
 
 ## Functions description
 
-- find_genes_qtls_around_markers:	Search genes and QTLs around candidate regions
-- overlapping_among_groups:	Overlapping between grouping factors
-- plot_overlapping:	Plot overlapping between data and grouping factors
-- plot_qtl_info:	Plot QTLs information from the find_genes_qtls_around_markers output
-- QTLenrich_plot:	Plot enrichment results for QTL enrichment analysis
-- qtl_enrich:	Performs a QTL enrichment analysis based in a Bootstrap simulation for each QTL class
-- relationship_plot:	Plot relationship between data and grouping factors
+1. _import_gff_gtf():_ Takes a .gft or .gff file and import into a dataframe
 
-**Annotation of QTLs overlapping genomic windows, a short example**
-```
-#Loading package
-library(GALLO)
+2. _find_genes_qtls_around_markers:_ Takes a dataframe with candidate markers and/or regions (haplotypes, windows, CNVs, etc) and search for genes or QTLs in a specified interval
 
-#Loading example dataset
-data(QTLwindows)
+3. _overlapping_among_groups:_ Takes a dataframe with a column for genes, QTLs (or any other data) and a grouping column and create matrices with the ovelapping information
 
-#Performing QTL annotation (method="qtl") for genomic windows (marker="haplotype"), 
-#using an interval of 100Kb upstream and downstream (interval=100000)
+4. _plot_overlapping:_ Takes the output from overlapping_amoung_groups function and creates a heatmap with the overlapping between groups
 
-qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",'marker_file=QTLwindows,
-method="qtl",'marker="haplotypes",interval=100000)
+5. _plot_qtl_info:_ Takes the output from find_genes_qtls_around_markers and create plots for the frequency of each QTL type and trait
 
-head(qtl.out)
-```
+6. _qtl_enrich:_ Takes the output from find_genes_qtls_around_markers and perform a QTL enrichment analysis
+
+7. _QTLenrich_plot:_ Takes the output from _find_genes_qtls_around_markers function and creates a heatmap with the overlapping between groups
+
+8. _relationship_plot:_ Takes the output from find_genes_qtls_around_markers function and creates a chord plot with the relationship between groups
+
+**A tutorial for GALLO usage can be found at:**
+
+https://rpubs.com/pablo_bio/GALLO_vignette
 
 ## Contact
 

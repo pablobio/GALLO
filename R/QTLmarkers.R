@@ -24,9 +24,5 @@
 #'
 #'@examples
 #'data(QTLmarkers)
-#'\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
-#'marker_file=QTLmarkers,method="qtl",
-#'marker="snp",interval=100000)}
-#'\donttest{head(qtl.out)}
 #' @keywords internal
 "QTLmarkers"

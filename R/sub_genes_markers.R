@@ -25,9 +25,6 @@ MultiCores(nThreads)
         tmp_markers<-data.table::as.data.table(marker_file[which(marker_file$CHR==chr),])
         tmp_markers$tmpBP1<-tmp_markers$BP-int
         tmp_markers$tmpBP2<-tmp_markers$BP+int
-        cat("\n")
-        message(paste("Starting analysis for chromosome ",chr, sep=""))
-        cat("\n")
         data.table::setkey(tmp_markers, tmpBP1,tmpBP2)
         out<-data.table::foverlaps(tmp_gene, tmp_markers, by.x = c("start_pos","end_pos"), by.y =  data.table::key(tmp_markers),nomatch = 0)
         out[,-c("tmpBP1","tmpBP2")]

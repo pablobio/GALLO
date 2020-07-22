@@ -11,6 +11,7 @@
 #' @return A data frame with the p-value for th enrichment result
 #' @name sub_qtlEnrich_chrom
 #' @importFrom stats p.adjust
+#' @importFrom stats phyper
 #' @keywords internal
 #'
 sub_qtlEnrich_chom<-function(qtl_file,qtl_type,qtl.file.types,table.qtl.class,padj,qtl_db,search_qtl,nThreads){

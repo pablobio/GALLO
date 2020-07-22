@@ -6,13 +6,13 @@
 #' @param y The data to be compared among the levels of the grouping factor
 #' @return A list with three matrices: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
 #' @examples
-#' data(QTLwindows)
-#'\donttest{genes.out <- find_genes_qtls_around_markers(db_file="gene.gtf",
-#'marker_file=QTLwindows,method="gene",
-#'marker="haplotypes",interval=100000)}
+#' data(QTLmarkers)
+#' data(gtfGenes)
+#'genes.out <- find_genes_qtls_around_markers(db_file=gtfGenes,
+#'marker_file=QTLmarkers,method="gene",
+#'marker="snp",interval=100000, nThreads=2)
 #'
-#'\donttest{overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",y="gene_id")}
-#'\donttest{overlapping.out}
+#'overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",y="gene_id")
 #' @export
 overlapping_among_groups<-function(file,x,y){
 out.matrix.N<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA)

@@ -25,10 +25,6 @@ Data from a systematic review which evaluated 18 articles regarding genomw-wide 
 }
 \examples{
 data(QTLwindows)
-\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
-marker_file=QTLwindows,method="qtl",
-marker="haplotypes",interval=100000)}
-\donttest{head(qtl.out)}
 }
 \references{
 Fonseca et al. (2018) Journal of Animal Science, Volume 96, Issue 12, December 2018, Pages 4978–4999.

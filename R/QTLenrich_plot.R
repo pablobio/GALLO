@@ -16,17 +16,17 @@
 #' @importFrom ggplot2 labs
 #' @return A plot with the QTL enrichment results
 #' @examples
-#' data(QTLmarkers)
+#' \donttest{data(QTLmarkers)
 #' data(gffQTLs)
-#'\donttest{qtl.out <- find_genes_qtls_around_markers(db_file=gffQTLs,
-#'marker_file=QTLmarkers,method="qtl",
-#'marker="snp",interval=100000)}
-#'\donttest{qtl.enrich.out<-qtl_enrich(qtl_db=gffQTLs,
-#'qtl_file=qtl.out,qtl_type="QTL_type",
-#'enrich_type="genome",chr.subset=NULL,
-#'n.it=1000,padj="fdr")}
-#'\donttest{QTLenrich_plot(qtl_enrich=qtl.enrich.out,x="QTL_type",pval="adjpval")}
-#'@export
+#' out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
+#' marker_file=QTLmarkers, method = "qtl",
+#' marker = "snp", interval = 500000, nThreads = 2)
+#' out.enrich<-qtl_enrich(qtl_db=gffQTLs, qtl_file=out.qtls,
+#' qtl_type = "Name", enrich_type = "genome",
+#' chr.subset = NULL, padj = "fdr",nThreads = 2)
+#' out.enrich.filtered<-out.enrich[which(out.enrich$adj.pval<0.05),]
+#' QTLenrich_plot(out.enrich.filtered, x="QTL", pval="adj.pval")}
+#' @export
 
 QTLenrich_plot<-function(qtl_enrich,x,pval){
 pvalue<-qtl_enrich[,pval]

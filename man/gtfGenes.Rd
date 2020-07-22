@@ -25,11 +25,6 @@ Data from the Ensembl comprasing the gene annoation for the bovine genome
 }
 \examples{
 data(gtfGenes)
-data(QTLmarkers)
-\donttest{gene.out <- find_genes_qtls_around_markers(db_file="gffQTLs",
-marker_file=QTLmarkers,method="gene",
-marker="snp",interval=100000)}
-\donttest{head(gene.out)}
 }
 \keyword{datasets}
 \keyword{internal}

@@ -11,11 +11,11 @@
 #' @name find_genes_qtls_around_markers
 #' @importFrom utils read.delim
 #' @examples
-#' data(QTLwindows)
-#'\donttest{qtl.out <- find_genes_qtls_around_markers(db_file="QTL_db.gff",
-#'marker_file=QTLwindows,method="qtl",
-#'marker="haplotypes",interval=100000)}
-#'\donttest{head(qtl.out)}
+#' data(QTLmarkers)
+#' data(gffQTLs)
+#' out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
+#' marker_file=QTLmarkers, method = "qtl",
+#' marker = "snp", interval = 500000, nThreads = 2)
 #' @export
 
 find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qtl"),marker=c("snp","haplotype"),interval=0,nThreads=NULL){

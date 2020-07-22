@@ -7,8 +7,7 @@
 #' @name import_gff_gtf
 #' @importFrom utils read.delim
 #' @examples
-#'\donttest{qtl.inp <- import_gff_gtf(db_file="QTL_db.gff",file_type="gff")}
-#'\donttest{head(qtl.inp)}
+#'\dontrun{qtl.inp <- import_gff_gtf(db_file="QTL_db.gff",file_type="gff")}
 #' @export
 
 import_gff_gtf<-function(db_file,file_type){

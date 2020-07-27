@@ -6,18 +6,18 @@
 #' @param y The data to be compared among the levels of the grouping factor
 #' @return A list with three matrices: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
 #' @examples
-#' data(QTLmarkers)
+#' \dontrun{data(QTLmarkers)
 #' data(gtfGenes)
-#'genes.out <- find_genes_qtls_around_markers(db_file=gtfGenes,
-#'marker_file=QTLmarkers,method="gene",
-#'marker="snp",interval=100000, nThreads=2)
-#'
-#'overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",y="gene_id")
+#' genes.out <- find_genes_qtls_around_markers(db_file=gtfGenes,
+#' marker_file=QTLmarkers,method="gene",
+#' marker="snp",interval=100000, nThreads=2)
+#'overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",
+#'y="gene_id")}
 #' @export
 overlapping_among_groups<-function(file,x,y){
-out.matrix.N<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA)
-out.matrix.perc<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA)
-out.matrix.merged<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA)
+out.matrix.N<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA, dimnames = list(unique(file[,x]),unique(file[,x])))
+out.matrix.perc<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA, dimnames = list(unique(file[,x]),unique(file[,x])))
+out.matrix.merged<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA, dimnames = list(unique(file[,x]),unique(file[,x])))
 trait<-unique(file[,x])
     for(i in seq_along(1:length(trait))){
         for(k in seq_along(1:length(trait))){

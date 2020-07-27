@@ -21,6 +21,6 @@
 #'@keywords datasets
 #'
 #'@examples
-#'data(gtfGenes)
+#'\dontrun{data(gtfGenes)}
 #' @keywords internal
 "gtfGenes"

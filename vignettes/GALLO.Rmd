@@ -138,10 +138,10 @@ In a conventional routine analysis, both .gff and .gtf files can be imported usi
   __marker_file:__ gff (for QTL annotation) or gtf (for gene annotation). 
 
 ```{r echo=T, results='asis'}
-#An example of how to mport a QTL annotation file
+#An example of how to import a QTL annotation file
 #qtl.inp <- import_gff_gtf(db_file="QTL_db.gff",file_type="gff")
 
-#An example of how to mport a gene annotation file
+#An example of how to import a gene annotation file
 #qtf.inp <- import_gff_gtf(db_file="Gene_db.gtf",file_type="gtf")
 ```
 \vspace{12pt}
@@ -244,8 +244,10 @@ Here, we will compared the number of shared genes (gene_id) among the different 
   
 
 ```{r echo=T}
+#Removing the duplicated records for Gene ID
+out.genes.unique<-out.genes[!duplicated(out.genes[c("Reference","gene_id")]),]
 #Calculating the number of shared genes between different studies
-overlap.genes<-overlapping_among_groups(file=out.genes, x="Reference", y="gene_id")
+overlap.genes<-overlapping_among_groups(file=out.genes.unique, x="Reference", y="gene_id")
 
 overlap.genes
 ```
@@ -274,7 +276,7 @@ Now it is possible to plot the overlapping among the studies using the plot_over
 
 ```{r echo=T}
 #Creating grouping labels (names of the references)
-group.labels<-unique(out.genes$Reference)
+group.labels<-unique(out.genes.unique$Reference)
 ```
 
 ```{r, fig.align="center", fig.width=8, fig.height=8, fig.cap="Gene overlapping among studies."}
@@ -283,7 +285,7 @@ plot_overlapping(overlap.genes, nmatrix=2, ntext=3, group=group.labels, labelcex
 
 ```
 \newpage
-__HINT:__ _The output matrices are not necessarily symmetric. For example, the percentage of shared genes between Fortes et al. (2012) and Fortes et al. (2013) is not the same percentage of shared genes between Fortes et al. (2013) and Fortes et al. (2012). The percentage of shared genes is calculated based on the total number of genes from the grouping factor "A" that are also present in the group "B" and vice-versa. Once the total number of genes in each group can be different, the percetage of genes (or any other data) from A shared with B can not be the same as B shared with A. The diagonals in the matrices represent the total number of genes in each study._
+__HINT:__ _The output matrices are not necessarily symmetric. For example, the percentage of shared genes between Feugant et al. (2010) and Buzanskas et al. (2017) is not the same percentage of shared genes between Buzanskas et al. (2017) and Feugang et al. (2010). The percentage of shared genes is calculated based on the total number of genes from the grouping factor "A" that are also present in the group "B" and vice-versa. Once the total number of genes in each group can be different, the percetage of genes (or any other data) from A shared with B can not be the same as B shared with A. The diagonals in the matrices represent the total number of genes in each study._
 
 \vspace{12pt}
 
@@ -313,7 +315,7 @@ plot_qtl_info(out.qtls, qtl_plot = "qtl_type", cex=2)
 ```
 
 
-The Reproduction QTL class was the most frequent annotated QTL class (44.01%), followed by Milk (31.06%), Production (10.1%), Exterior (8.21%), Meat and Carcass (4.97%) and health (2.55%). The percentage of each QTL classe can give us a better idea about how frequently our candidate regions are associated with each kind of QTL class. However, the investigation bias (number of studies) for a QTL traits, such as Milk related QTLs, will result in much more QTLs anntated for that gene. Consequently, we need to investigate in deep the relationship between our candidate regions and the prevous reported QTLs. This analysis can help us to identify specialized regions across the genome for a trait and/or pleiotropic and espistatic effects in our candidate regions. 
+The Reproduction QTL class was the most frequent annotated QTL class (44.01%), followed by Milk (31.06%), Production (10.1%), Exterior (8.21%), Meat and Carcass (4.97%) and health (2.55%). The percentage of each QTL classe can give us a better idea about how frequently our candidate regions are associated with each kind of QTL class. However, the investigation bias (number of studies) for a QTL traits, such as Milk related QTLs, will result in much more QTLs anntated for that trait. Consequently, we need to investigate in deep the relationship between our candidate regions and the prevous reported QTLs. This analysis can help us to identify specialized regions across the genome for a trait and/or pleiotropic and espistatic effects in our candidate regions. 
 
 Using the same fucntion, plot_qtl_info, now we can check the respective percentages of each trait that was annotated and composed that QTL class. In order to do this, we need to inform the "Reproduction" class for the qtl_class argument.
 
@@ -372,7 +374,7 @@ The simple bias of investigation for some traits (such as milk production relate
 
 \vspace{12pt}
 
-As an example, we are going to perform a enrichment analysis for all the QTL information annotated around the candidate markers using a chromosome-based enrichment analysis in 1000 iterations. The adjusted p-values will be calculated based on False-Discovery Rate (FDR). For this analysis, 4 cores will be used with a "multicore" parallel operation.
+As an example, we are going to perform a enrichment analysis for all the QTL information annotated around the candidate markers using a chromosome-based enrichment analysis. The adjusted p-values will be calculated based on False-Discovery Rate (FDR). 
 
 \vspace{12pt}
 
@@ -395,7 +397,7 @@ DT::datatable(out.enrich[order(out.enrich$pvalue),],
 ```
 
 \vspace{12pt}
-The output from the qtl_enrich function is a data frame composed by 9 columns: 1) QTL: The QTL class or trait used for the enrichment; 2) CHR: The chromosome for that specific QTL or trait (if the option "chromosome" is informed to the argument enrich_type); 3) N_QTLs: Number of observed QTLs or traits in the dataset; 4) N_QTLs_db: Number of each annotatted QTL in the qTL database; 5) Total_annotated_QTLs: Total number of annotatted QTLs; 6) Total_QTLs_db: Total number of QTLs in the QTL database; 7) pvalue: P-value for the enrichment analysis; 8) adj.pval: The adjusted p-value based on the multiple test correction selected by the user; 9) QTL_type= The QTL type for each annotatted trait.
+The output from the qtl_enrich function is a data frame composed by 9 columns: 1) QTL: The QTL class or trait used for the enrichment; 2) CHR: The chromosome for that specific QTL or trait (if the option "chromosome" is informed to the argument enrich_type); 3) N_QTLs: Number of observed QTLs or traits in the dataset; 4) N_QTLs_db: Number of each annotated  QTL in the qTL database; 5) Total_annotated_QTLs: Total number of annotated QTLs; 6) Total_QTLs_db: Total number of QTLs in the QTL database; 7) pvalue: P-value for the enrichment analysis; 8) adj.pval: The adjusted p-value based on the multiple test correction selected by the user; 9) QTL_type= The QTL type for each annotated  trait.
 \vspace{12pt}
 
 __HINT:__ _It is possible to match the traits in the qtl_enrich output with the respective QTL classes from the QTL annotation output. Consequently, the enrichment results can be filtered by the QTL classes, such as Reproduction, Meat and Carcass, Production, etc._
@@ -412,7 +414,7 @@ _QTLenrich_plot(qtl_enrich, x, pval)_
 
   __x:__ ID column to be used from the qtl_enrich output
 
-  __pval:__ P-value to be used in the plot. If "p_value" informed, a non-adjusted pvalue will be plotted. If "padj" informed, the adjusted p-value from the qtl enrichment analysis will be plotted.
+  __pval:__ P-value to be used in the plot. If "p_value" informed, a non-adjusted pvalue will be plotted. If "p.adj" informed, the adjusted p-value from the qtl enrichment analysis will be plotted.
 \vspace{12pt}
 
 Before plot the enrichment results, a new ID column will be created in order to make easier to identify the enrichment results per chromosome. Additonally, we are going to match the QTL classes for each trait and filter the top 10 enriched QTLs.
@@ -428,11 +430,11 @@ out.enrich.filtered<-out.enrich[which(out.enrich$adj.pval<0.05),]
 \vspace{12pt}
 \newpage
 ```{r, fig.width=15, fig.height=10, fig.cap="Top 10 enriched traits identified in the QTL enrichment analysis. The area of the bubbles represents the number of observed QTLs for that class, while the color represents the p-value scale (the darker the color, smaller the p-value). Additionally, the x-axis shows the richness factor for each QTL, representing the ratio of number of QTLs and the expected number of that QTL."}
-#plotting the percentage of each trait annoatted as a Reproduction QTL
+#Plotting the enrichment results for the QTL enrichment analysis
 QTLenrich_plot(out.enrich.filtered, x="ID", pval="adj.pval")
 ```
 
-_Notice we filtered the enriched results using the raw p-values and we plotted the results using the adjusted p-values (using FDR), we choose this approach in order to allow us to have a broader view of the results. Additionally, it is important to highligh that several QTL had just one observation per chromosome. This results can reflect the real genetic architeture of the the trait (there is just one QTL for this trait in that chromosome) or a lack of annotation regarding QTLs for this trait in the database. Therefore, as any enrichment analysis, the quality of annotation, in this case, the number of association studies for a specific trait, can directly affect the enrichment results._ 
+_As any enrichment analysis, the quality of annotation, in this case, the number of association studies for a specific trait, can directly affect the enrichment results._ 
 
 \vspace{12pt}
 
@@ -492,7 +494,7 @@ names(color.grid)<-c(unique(out.qtls.filtered$Abbrev),
 
 #Plotting the relationship plot using the grid color created above
 relationship_plot(qtl_file=out.qtls.filtered, x="Abbrev",
-                  y="Reference",cex=1,gap=5,degree = 90,
+                  y="Reference",cex=1,gap=2.5,degree = 60,
                   canvas.xlim = c(-5, 5), 
                   canvas.ylim = c(-3, 3), grid.col = color.grid)
 ```

@@ -20,7 +20,7 @@
 #' @importFrom unbalhaar uh
 #' @return A chords relating x and y
 #' @examples
-#' \donttest{data(QTLmarkers)
+#' \dontrun{data(QTLmarkers)
 #' data(gffQTLs)
 #' out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 #' marker_file=QTLmarkers, method = "qtl",

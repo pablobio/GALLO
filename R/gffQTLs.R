@@ -19,6 +19,6 @@
 #'@keywords datasets
 #'
 #'@examples
-#'data(gffQTLs)
+#'\dontrun{data(gffQTLs)}
 #' @keywords internal
 "gffQTLs"

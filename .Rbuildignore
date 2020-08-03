@@ -7,4 +7,4 @@
 ^pkgdown$
 ^.*\.git
 ^doc$
-^cran-comments.Rmd
+^cran-comments.md

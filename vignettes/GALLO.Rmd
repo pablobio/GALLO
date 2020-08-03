@@ -177,7 +177,7 @@ For example, let`s run a gene and QTL annotation using the QTLwindows dataset wi
 #Running gene annotation
 out.genes<-find_genes_qtls_around_markers(db_file=gtfGenes,
 marker_file=QTLmarkers, method = "gene", 
-marker = "snp", interval = 500000, nThreads = 2)
+marker = "snp", interval = 500000, nThreads = NULL)
 
 #Checking the first rows from the output file
 DT::datatable(out.genes, rownames = FALSE, 
@@ -198,7 +198,7 @@ The gene annotation resulted in 652 genes within the 1 Mb interval (500 Kb upstr
 #Running QTL annotation
 out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 marker_file=QTLmarkers, method = "qtl",
-marker = "snp", interval = 500000, nThreads = 2)
+marker = "snp", interval = 500000, nThreads = NULL)
 
 #Checking the first rows from the output file
 DT::datatable(out.qtls, rownames = FALSE, 
@@ -285,7 +285,7 @@ plot_overlapping(overlap.genes, nmatrix=2, ntext=3, group=group.labels, labelcex
 
 ```
 \newpage
-__HINT:__ _The output matrices are not necessarily symmetric. For example, the percentage of shared genes between Feugant et al. (2010) and Buzanskas et al. (2017) is not the same percentage of shared genes between Buzanskas et al. (2017) and Feugang et al. (2010). The percentage of shared genes is calculated based on the total number of genes from the grouping factor "A" that are also present in the group "B" and vice-versa. Once the total number of genes in each group can be different, the percetage of genes (or any other data) from A shared with B can not be the same as B shared with A. The diagonals in the matrices represent the total number of genes in each study._
+__HINT:__ _The output matrices are not necessarily symmetric. For example, the percentage of shared genes between Feugant et al. (2010) and Buzanskas et al. (2017) is not the same percentage of shared genes between Buzanskas et al. (2017) and Feugang et al. (2010). The percentage of shared genes is calculated based on the total number of genes from the grouping factor "A" that are also present in the group "B" and vice-versa. Once the total number of genes in each group can be different, the percentage of genes (or any other data) from A shared with B can not be the same as B shared with A. The diagonals in the matrices represent the total number of genes in each study._
 
 \vspace{12pt}
 
@@ -310,18 +310,20 @@ The GALLO package also allows the user to plot the QTL information annotated usi
 \vspace{12pt}
 ```{r echo=T, fig.height = 40, fig.width = 16, fig.align = "center"}
 #plotting the percentage of each QTL class annoatted
-par(mar=c(1,30,1,1))
+oldpar <- par(mar=c(1,30,1,1))
+on.exit(par(oldpar))
 plot_qtl_info(out.qtls, qtl_plot = "qtl_type", cex=2)
 ```
 
 
-The Reproduction QTL class was the most frequent annotated QTL class (44.01%), followed by Milk (31.06%), Production (10.1%), Exterior (8.21%), Meat and Carcass (4.97%) and health (2.55%). The percentage of each QTL classe can give us a better idea about how frequently our candidate regions are associated with each kind of QTL class. However, the investigation bias (number of studies) for a QTL traits, such as Milk related QTLs, will result in much more QTLs anntated for that trait. Consequently, we need to investigate in deep the relationship between our candidate regions and the prevous reported QTLs. This analysis can help us to identify specialized regions across the genome for a trait and/or pleiotropic and espistatic effects in our candidate regions. 
+The Reproduction QTL class was the most frequent annotated QTL class (44.01%), followed by Milk (31.06%), Production (10.1%), Exterior (8.21%), Meat and Carcass (4.97%) and health (2.55%). The percentage of each QTL classe can give us a better idea about how frequently our candidate regions are associated with each kind of QTL class. However, the investigation bias (number of studies) for a QTL traits, such as Milk related QTLs, will result in much more QTLs annotated for that trait. Consequently, we need to investigate in deep the relationship between our candidate regions and the previous reported QTLs. This analysis can help us to identify specialized regions across the genome for a trait and/or pleiotropic and espistatic effects in our candidate regions. 
 
 Using the same fucntion, plot_qtl_info, now we can check the respective percentages of each trait that was annotated and composed that QTL class. In order to do this, we need to inform the "Reproduction" class for the qtl_class argument.
 
 ```{r, fig.width=8, fig.height=6, fig.cap="Percentage of each trait annotated as a Reproduction QTL in the candidate intervals."}
 #Setting margin parameter to better fit the axis labels
-par(mar=c(5,20,1,1))
+oldpar<-par(mar=c(5,20,1,1))
+on.exit(par(oldpar))  
 #plotting the percentage of each trait annoatted as a Reproduction QTL
 plot_qtl_info(out.qtls, qtl_plot = "qtl_name", qtl_class="Reproduction")
 ```
@@ -329,7 +331,7 @@ plot_qtl_info(out.qtls, qtl_plot = "qtl_name", qtl_class="Reproduction")
 
 This plot allows to check the most representative traits within each kind of QTL classes. 
 
-__HINT:__ _The user can easily include this function in a for loop and plot the percentages for all the QTL classes. Additonally, the number of traits exhibited in the plots can be passed to the argumant n. This can be performed using the following code, for example:_
+__HINT:__ _The user can easily include this function in a for loop and plot the percentages for all the QTL classes. Additionally, the number of traits exhibited in the plots can be passed to the argument n. This can be performed using the following code, for example:_
 
 ```{r, results='hide', eval=F}
 #Plotting percentage of the top 10 most frequent traits in all QTL classes 
@@ -387,7 +389,7 @@ _This step might take some minutes to run depending of the user`s system._
 out.enrich<-qtl_enrich(qtl_db=gffQTLs, 
                        qtl_file=out.qtls, qtl_type = "Name",
                        enrich_type = "chromosome", chr.subset = NULL, 
-                       padj = "fdr",nThreads = 2)
+                       padj = "fdr",nThreads = NULL)
 
 #Checking the enriched QTLs
 DT::datatable(out.enrich[order(out.enrich$pvalue),], 
@@ -417,7 +419,7 @@ _QTLenrich_plot(qtl_enrich, x, pval)_
   __pval:__ P-value to be used in the plot. If "p_value" informed, a non-adjusted pvalue will be plotted. If "p.adj" informed, the adjusted p-value from the qtl enrichment analysis will be plotted.
 \vspace{12pt}
 
-Before plot the enrichment results, a new ID column will be created in order to make easier to identify the enrichment results per chromosome. Additonally, we are going to match the QTL classes for each trait and filter the top 10 enriched QTLs.
+Before plot the enrichment results, a new ID column will be created in order to make easier to identify the enrichment results per chromosome. Additionally, we are going to match the QTL class for each trait and filter the top 10 enriched QTLs.
 \vspace{12pt}
 
 ```{r, echo=T}
@@ -502,7 +504,7 @@ relationship_plot(qtl_file=out.qtls.filtered, x="Abbrev",
 The GALLO package provides a user-friendly and straightforward environment to perform gene and QTL annotation, visualization, data comparison and QTL enrichment for functional studies in livestock species. Consequently, the use of GALLO in the analysis of data generated from high-throughput methodologies may improve the identification of hidden pattern across datasets, datamining of previous reported associations, as well as the efficiency in the scrutinization of the genetic architecture of complex traits in livestock.
 
 \vspace{12pt}
-This was a short example of GALLO usage. The user can perform several different apporaches in order to explore GALLO potential.
+This was a short example of GALLO usage. The user can perform several different approaches in order to explore GALLO potential.
 
 \centering
 ## Reference

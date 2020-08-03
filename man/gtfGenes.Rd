@@ -21,10 +21,10 @@ A data frame with 24616 rows and 8 variables:
 data(gtfGenes)
 }
 \description{
-Data from the Ensembl comprasing the gene annoation for the bovine genome
+Data from the Ensembl comprasing the gene annotation for the bovine genome
 }
 \examples{
-data(gtfGenes)
+\donttest{data(gtfGenes)}
 }
 \keyword{datasets}
 \keyword{internal}

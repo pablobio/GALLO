@@ -1,19 +1,19 @@
 #' Plot overlapping between data and grouping factors
 #'
-#' Takes the output from overlapping_amoung_groups function and creates a heatmap with the overlapping between groups
+#' Takes the output from overlapping_among_groups function and creates a heatmap with the overlapping between groups
 #' @param overlapping_matrix The object obtained in overlapping_amoung_groups function
-#' @param nmatrix An interger from 1 to 3 indicating wich matrix will be used to plot the overlapping, where: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
-#' @param ntext An interger from 1 to 3 indicating wich matrix will be used as the text matrix for the heatmap, where: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
+#' @param nmatrix An interger from 1 to 3 indicating which matrix will be used to plot the overlapping, where: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
+#' @param ntext An interger from 1 to 3 indicating which matrix will be used as the text matrix for the heatmap, where: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
 #' @param group A vector with the size of groups. This vector will be plotted as row and column names in the heatmap
 #' @param labelcex A numeric value indicating the size of the row and column labels
 #' @return A heatmap with the overlapping between groups
 #' @importFrom grDevices colorRampPalette
 #' @examples
-#' \dontrun{data(QTLmarkers)
+#' \donttest{data(QTLmarkers)
 #' data(gtfGenes)
 #' genes.out <- find_genes_qtls_around_markers(db_file=gtfGenes,
 #' marker_file=QTLmarkers,method="gene",
-#' marker="snp",interval=100000, nThreads=2)
+#' marker="snp",interval=100000, nThreads=NULL)
 #' overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",y="gene_id")
 #' plot_overlapping(overlapping.out,nmatrix=2,ntext=2,group=unique(genes.out$Reference))}
 #' @export

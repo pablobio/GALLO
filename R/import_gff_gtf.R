@@ -1,4 +1,4 @@
-#' Import .gtf and .gff files to be used during gene and QTL annotation, respectivelly
+#' Import .gtf and .gff files to be used during gene and QTL annotation, respectively
 #'
 #' Takes a .gft or .gff file and import into a dataframe
 #' @param db_file File with the gene mapping or QTL information. For gene mapping, a .gtf file  from Ensembl database must be used. For the QTL search, a .gff file from Animal QTlLdb must be used. Both files must use the same reference annotation used in the original study

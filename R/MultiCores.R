@@ -12,18 +12,17 @@
 #' @return Registers the parallel work in the required cores
 
 MultiCores<-function(nThreads){
-nCores = detectCores()
-    if (is.null(nThreads)) {
-        nThreads = nCores-1
-        registerDoParallel(nThreads)
-    }else{
-        if (!is.numeric(nThreads) || nThreads < 2){
-            stop("nThreads must be numeric and at least 2.")
-        }
-        if (nThreads > nCores){
-            printFlush(paste("Warning in number of threads: Requested number of threads is higher than number\n","of available processors (or cores).","It is recommended that the number of threads is no more than number\n","of available processors.\n"))
-            registerDoParallel(nThreads)
-        }
-        registerDoParallel(nThreads)
+nCores = parallel::detectCores()
+    if (!is.null(nThreads)){
+    if (!is.numeric(nThreads) || nThreads < 2){
+        stop("nThreads must be numeric and at least 2.")
     }
+    if (nThreads > nCores){
+        printFlush(paste("Warning in number of threads: Requested number of threads is higher than number\n","of available processors (or cores).","It is recommended that the number of threads is no more than number\n","of available processors.\n"))
+        doParallel::registerDoParallel(nThreads)
+    }
+    if (nThreads < nCores){
+        doParallel::registerDoParallel(nThreads)
+    }
+  }
 }

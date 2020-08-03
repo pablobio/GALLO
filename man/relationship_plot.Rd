@@ -23,7 +23,7 @@ relationship_plot(
 
 \item{y}{The second grouping factor, to be plotted in the left hand side of the chord plot}
 
-\item{grid.col}{A character with the grid color for the chord plot or a vector with different colors to be used in the grid colors. Note that when a color vector is provided, the lenght of this vector must be equal the number of sectors in the chord plot}
+\item{grid.col}{A character with the grid color for the chord plot or a vector with different colors to be used in the grid colors. Note that when a color vector is provided, the length of this vector must be equal the number of sectors in the chord plot}
 
 \item{degree}{A numeric value corresponding to the starting degree from which the circle begins to draw. Note this degree is always reverse-clockwise}
 
@@ -46,10 +46,10 @@ Takes the output from find_genes_qtls_around_markers function and creates a chor
 data(gffQTLs)
 out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 marker_file=QTLmarkers, method = "qtl",
-marker = "snp", interval = 500000, nThreads = 2)
+marker = "snp", interval = 500000, nThreads = NULL)
 out.enrich<-qtl_enrich(qtl_db=gffQTLs, qtl_file=out.qtls,
 qtl_type = "Name", enrich_type = "chromosome",
-chr.subset = NULL, padj = "fdr",nThreads = 2)
+chr.subset = NULL, padj = "fdr",nThreads = NULL)
 out.enrich$ID<-paste(out.enrich$QTL," - ","CHR",out.enrich$CHR,sep="")
 out.enrich.filtered<-out.enrich[which(out.enrich$adj.pval<0.05),]
 out.qtls$ID<-paste(out.qtls$Name," - ","CHR",out.qtls$CHR,sep="")

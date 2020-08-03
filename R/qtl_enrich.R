@@ -7,9 +7,10 @@
 #' @param enrich_type A character indicating if the enrichment analysis will be performed for all the chromosomes ("genome") or for a subset of chromosomes ("chromosome). If the "genome" option is selected, the results reported are the merge of all chromosomes
 #' @param chr.subset If enrich_type equal "chromosome", it is possible to define a subset of chromosomes to be analyzed. The default is equal NULL. Therefore, all the chromosomes will be analyzed
 #' @param nThreads The number of threads to be used.
-#' @param padj The alogorithm for multiple testing correction to be adopted ("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none")
+#' @param padj The algorithm for multiple testing correction to be adopted ("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none")
+#' @param  verbose Logical value defining if messages should of not be printed during the analysis (default=TRUE)
 #' @details The simple bias of investigation for some traits (such as milk production related traits in the QTL database for cattle) may result in a larger proportion of records in the database. Consequently, the simple investigation of the proportion of each QTL type might not be totally useful. In order to reduce the impact of this bias, a QTL enrichment analysis can be performed. The QTL enrichment analysis performed by GALLO package is based in a hypergeometric test using the number of annoatted QTLs within the candidate regions and the total number of the same QTL in the QTL database.
-#' @return A data frame with the p-value for th enrichment result
+#' @return A data frame with the p-value for the enrichment result
 #' @name qtl_enrich
 #' @importFrom dynamicTreeCut printFlush
 #' @examples
@@ -17,12 +18,12 @@
 #' data(gffQTLs)
 #' out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 #' marker_file=QTLmarkers, method = "qtl",
-#' marker = "snp", interval = 500000, nThreads = 2)
+#' marker = "snp", interval = 500000, nThreads = NULL)
 #' out.enrich<-qtl_enrich(qtl_db=gffQTLs, qtl_file=out.qtls,
 #' qtl_type = "Name", enrich_type = "chromosome",
-#' chr.subset = NULL, padj = "fdr",nThreads = 2)}
+#' chr.subset = NULL, padj = "fdr",nThreads = NULL)}
 #' @export
-qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","Name"),enrich_type=c("genome","chromosome"),chr.subset=NULL,nThreads=NULL,padj=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none")){
+qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","Name"),enrich_type=c("genome","chromosome"),chr.subset=NULL,nThreads=NULL,padj=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none"), verbose=TRUE){
 nThreads<-nThreads
     if(is.null(chr.subset)){
         chr.subset<-unique(qtl_file$CHR)
@@ -35,9 +36,10 @@ qtl_file<-qtl_file[which(qtl_file$CHR%in%chr.subset),]
         qtl.file.types<-unique(qtl_file$Name)
         search_qtl<-"extra_info"
     }
-
-message("Staring QTL enrichment analysis for QTL class")
-cat("\n")
+    if(verbose==TRUE){
+        cat("Staring QTL enrichment analysis for QTL class")
+        cat("\n")
+    }
     if(enrich_type=="genome"){
         table.qtl.class<-as.data.frame(table(qtl_file[,qtl_type]))
         qtl.file.types<-as.character(unique(table.qtl.class$Var1))
@@ -54,7 +56,9 @@ out.enrich$QTL<-gsub("_"," ", out.enrich$QTL)
     out.enrich$QTL_type<-qtl_file[match(out.enrich$QTL,qtl_file[,qtl_type]),"QTL_type"]
     out.enrich$QTL_type<-gsub("_"," ", out.enrich$QTL_type)
     }
-cat("\n")
-message("End of QTL enrichment analysis")
+    if(verbose==TRUE){
+        cat("\n")
+        message("End of QTL enrichment analysis")
+    }
 return(out.enrich)
 }

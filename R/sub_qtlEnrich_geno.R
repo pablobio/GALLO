@@ -15,7 +15,7 @@
 #' @keywords internal
 #'
 sub_qtlEnrich_geno<-function(qtl_file,qtl_type,qtl.file.types,table.qtl.class,padj,qtl_db,search_qtl,nThreads){
-MultiCores(nThreads)
+    MultiCores(nThreads)
     out.final<-foreach::foreach(k=qtl.file.types,.combine="rbind")%dopar%{
         tmp.qtl<-k
         tmp.qtl.file<-qtl_file[which(qtl_file[,qtl_type]==tmp.qtl),]

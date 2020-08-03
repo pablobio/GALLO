@@ -10,13 +10,14 @@ find_genes_qtls_around_markers(
   method = c("gene", "qtl"),
   marker = c("snp", "haplotype"),
   interval = 0,
-  nThreads = NULL
+  nThreads = NULL,
+  verbose = TRUE
 )
 }
 \arguments{
 \item{db_file}{The dataframe obtained using the import_gff_gtf() function}
 
-\item{marker_file}{The file with the SNP or haplotype positions. Detail: For SNP files, the collumns “CHR” and “BP” with the chromosome and base pair position, respectively, are mandatory. For the haplotype, the following collumns are mandatory: “CHR”, “BP1” and “BP2”}
+\item{marker_file}{The file with the SNP or haplotype positions. Detail: For SNP files, the columns “CHR” and “BP” with the chromosome and base pair position, respectively, are mandatory. For the haplotype, the following collumns are mandatory: “CHR”, “BP1” and “BP2”}
 
 \item{method}{“gene” or “qtl”}
 
@@ -25,6 +26,8 @@ find_genes_qtls_around_markers(
 \item{interval}{The interval in base pair which can be included upstream and downstream from the markers or haplotype coordinates.}
 
 \item{nThreads}{Number of threads to be used}
+
+\item{verbose}{Logical value defining if messages should of not be printed during the analysis (default=TRUE)}
 }
 \value{
 A dataframe with the genes or QTLs mapped within the specified intervals
@@ -33,9 +36,9 @@ A dataframe with the genes or QTLs mapped within the specified intervals
 Takes a list of candidate markers and or regions (haplotypes, CNVs, windows, etc.) and search for genes or QTLs in a determined interval
 }
 \examples{
-data(QTLmarkers)
+\donttest{data(QTLmarkers)
 data(gffQTLs)
 out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 marker_file=QTLmarkers, method = "qtl",
-marker = "snp", interval = 500000, nThreads = 2)
+marker = "snp", interval = 500000, nThreads = NULL)}
 }

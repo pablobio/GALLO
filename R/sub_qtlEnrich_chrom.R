@@ -15,7 +15,7 @@
 #' @keywords internal
 #'
 sub_qtlEnrich_chom<-function(qtl_file,qtl_type,qtl.file.types,table.qtl.class,padj,qtl_db,search_qtl,nThreads){
-MultiCores(nThreads)
+    MultiCores(nThreads)
     out.final<-foreach::foreach(k=qtl.file.types,.combine="rbind")%dopar%{
         tmp.qtl<-k
         table.qtl.class.tmp<-table.qtl.class[which(table.qtl.class$Var1==tmp.qtl),]

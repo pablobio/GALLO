@@ -23,6 +23,6 @@
 #'(\href{https://doi.org/10.1093/jas/sky382}{PubMed})
 #'
 #'@examples
-#'\dontrun{data(QTLmarkers)}
+#'\donttest{data(QTLmarkers)}
 #' @keywords internal
 "QTLmarkers"

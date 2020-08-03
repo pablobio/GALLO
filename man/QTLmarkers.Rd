@@ -23,7 +23,7 @@ data(QTLmarkers)
 Data from a systematic review which evaluated 18 articles regarding genome-wide association studies for male fertility traits in beef and dairy cattle
 }
 \examples{
-data(QTLmarkers)
+\donttest{data(QTLmarkers)}
 }
 \references{
 Fonseca et al. (2018) Journal of Animal Science, Volume 96, Issue 12, December 2018, Pages 4978–4999.

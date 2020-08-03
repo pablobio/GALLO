@@ -14,17 +14,17 @@ overlapping_among_groups(file, x, y)
 \item{y}{The data to be compared among the levels of the grouping factor}
 }
 \value{
-A list with three matrices: 1) A matrix with the number of overllaping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
+A list with three matrices: 1) A matrix with the number of overlapping data; 2) A matrix with the percentage of overlapping; 3) A matrix with the combination of the two previous one
 }
 \description{
-Takes a dataframe with a column of genes, QTLs (or other data) and a grouping column and create some matrices with the ovelapping information
+Takes a dataframe with a column of genes, QTLs (or other data) and a grouping column and create some matrices with the overlapping information
 }
 \examples{
-data(QTLmarkers)
+\donttest{data(QTLmarkers)
 data(gtfGenes)
 genes.out <- find_genes_qtls_around_markers(db_file=gtfGenes,
 marker_file=QTLmarkers,method="gene",
-marker="snp",interval=100000, nThreads=2)
-
-overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",y="gene_id")
+marker="snp",interval=100000, nThreads=NULL)
+overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",
+y="gene_id")}
 }

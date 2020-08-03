@@ -1,6 +1,6 @@
 #'A gtf example for gene annotation
 #'
-#'Data from the Ensembl comprasing the gene annoation for the bovine genome
+#'Data from the Ensembl comprasing the gene annotation for the bovine genome
 #'
 #'@docType data
 #'
@@ -21,6 +21,6 @@
 #'@keywords datasets
 #'
 #'@examples
-#'\dontrun{data(gtfGenes)}
+#'\donttest{data(gtfGenes)}
 #' @keywords internal
 "gtfGenes"

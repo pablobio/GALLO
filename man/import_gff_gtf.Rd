@@ -2,7 +2,7 @@
 % Please edit documentation in R/import_gff_gtf.R
 \name{import_gff_gtf}
 \alias{import_gff_gtf}
-\title{Import .gtf and .gff files to be used during gene and QTL annotation, respectivelly}
+\title{Import .gtf and .gff files to be used during gene and QTL annotation, respectively}
 \usage{
 import_gff_gtf(db_file, file_type)
 }

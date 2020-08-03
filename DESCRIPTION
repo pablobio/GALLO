@@ -6,7 +6,8 @@ Authors@R:
            family = "Fonseca",
            role = c("aut", "cre"),
            email = "pfonseca@uoguelph.ca"), person("Aroa", "Suarez-Vega", email = "asuarezv@uoguelph.ca", role = "aut"),person("Gabriele", "Marras", email = "gmarras@semex.com", role = "aut"),person("Angela", "Cánovas", email = "acanovas@uoguelph.ca", role = "aut"))
-Description: Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an R package, for the accurate annotation of genes and Quantitative Trait Loci (QTLs) located within candidate markers and/or regions (haplotypes, windows, CNVs, etc) identified in the most common genomic analyses performed in livestock, such as Genome-Wide Association Studies or transcriptomics. Moreover, GALLO allows the graphical visualization of gene and QTL annotation results, data comparison among different grouping factors (e.g., methods, breeds, tissues, statistical models, studies, etc.), and QTL enrichment in different livestock species including cattle, pigs, sheep, and chicken, among others.
+Description: The accurate annotation of genes and Quantitative Trait Loci (QTLs) located within candidate markers and/or regions (haplotypes, windows, CNVs, etc) is a crucial step the most common genomic analyses performed in livestock, such as Genome-Wide Association Studies or transcriptomics. The Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an R package designed to provide an intuitive and straightforward environment to annoatate positional candidate genes and QTLs from high-throughput genetic studies in livestock. Moreover, GALLO allows the graphical visualization of gene and QTL annotation results, data comparison among different grouping factors (e.g., methods, breeds, tissues, statistical models, studies, etc.), and QTL enrichment in different livestock species including cattle, pigs, sheep, and chicken, among others.
+URL: <https://github.com/pablobio/GALLO>
 Depends: R (>= 3.5.0)
 biocViews: Software
 Imports: circlize, DT, data.table, doParallel, dplyr, dynamicTreeCut, ggplot2, graphics, grDevices, foreach, lattice , parallel, RColorBrewer, rtracklayer, stats, stringr, unbalhaar, utils
@@ -17,5 +18,6 @@ RoxygenNote: 7.1.1
 Suggests: 
     BiocStyle,
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr

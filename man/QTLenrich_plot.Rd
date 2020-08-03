@@ -11,7 +11,7 @@ QTLenrich_plot(qtl_enrich, x, pval)
 
 \item{x}{Id column to be used from the qtl_enrich output}
 
-\item{pval}{P-value to be used in the plot. If "p_value" informed, a non-adjusted pvalue will be plot. If "padj" informed, the adjusted p-value from the qtl enrichment analysis will be plotted.}
+\item{pval}{P-value to be used in the plot. The name informed to this argument must match the p-value column name in the enrichment table}
 }
 \value{
 A plot with the QTL enrichment results
@@ -24,10 +24,10 @@ Takes the output from qtl_enrich function and creates a bubble plot with enrichm
 data(gffQTLs)
 out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 marker_file=QTLmarkers, method = "qtl",
-marker = "snp", interval = 500000, nThreads = 2)
+marker = "snp", interval = 500000, nThreads = NULL)
 out.enrich<-qtl_enrich(qtl_db=gffQTLs, qtl_file=out.qtls,
 qtl_type = "Name", enrich_type = "genome",
-chr.subset = NULL, padj = "fdr",nThreads = 2)
+chr.subset = NULL, padj = "fdr",nThreads = NULL)
 out.enrich.filtered<-out.enrich[which(out.enrich$adj.pval<0.05),]
 QTLenrich_plot(out.enrich.filtered, x="QTL", pval="adj.pval")}
 }

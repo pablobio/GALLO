@@ -10,7 +10,7 @@
 #'\itemize{
 #'  \item chr: Chromosome
 #'  \item database: The database which the QTL information was retrieved
-#'  \item QTL_type: The class of each QTL annoatted in the database
+#'  \item QTL_type: The class of each QTL annotated in the database
 #'  \item start_pos: Start position in the genome for each QTL
 #'  \item end_pos: End position in the genome for each QTL
 #'  \item extra_info: Additional information about the QTLs, such as QTL ID, Name, PUBMED ID, mapping type, among others
@@ -19,6 +19,6 @@
 #'@keywords datasets
 #'
 #'@examples
-#'\dontrun{data(gffQTLs)}
+#'\donttest{data(gffQTLs)}
 #' @keywords internal
 "gffQTLs"

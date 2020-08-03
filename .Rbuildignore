@@ -7,4 +7,8 @@
 ^pkgdown$
 ^.*\.git
 ^doc$
+<<<<<<< HEAD
 ^cran-comments\.md$
+=======
+^cran-comments.md
+>>>>>>> c62a9e89436848ae9b5ec45eafd18771ded53711

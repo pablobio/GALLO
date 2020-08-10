@@ -14,14 +14,14 @@
 #' @name qtl_enrich
 #' @importFrom dynamicTreeCut printFlush
 #' @examples
-#' \donttest{data(QTLmarkers)
+#' data(QTLmarkers)
 #' data(gffQTLs)
 #' out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 #' marker_file=QTLmarkers, method = "qtl",
 #' marker = "snp", interval = 500000, nThreads = NULL)
 #' out.enrich<-qtl_enrich(qtl_db=gffQTLs, qtl_file=out.qtls,
 #' qtl_type = "Name", enrich_type = "chromosome",
-#' chr.subset = NULL, padj = "fdr",nThreads = NULL)}
+#' chr.subset = NULL, padj = "fdr",nThreads = NULL)
 #' @export
 qtl_enrich<-function(qtl_db,qtl_file,qtl_type=c("QTL_type","Name"),enrich_type=c("genome","chromosome"),chr.subset=NULL,nThreads=NULL,padj=c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY","fdr", "none"), verbose=TRUE){
 nThreads<-nThreads

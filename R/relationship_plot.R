@@ -20,7 +20,7 @@
 #' @importFrom unbalhaar uh
 #' @return A chords relating x and y
 #' @examples
-#' \donttest{data(QTLmarkers)
+#' data(QTLmarkers)
 #' data(gffQTLs)
 #' out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 #' marker_file=QTLmarkers, method = "qtl",
@@ -44,7 +44,7 @@
 #' relationship_plot(qtl_file=out.qtls.filtered, x="Abbrev",
 #' y="Reference",cex=1,gap=5,degree = 90,
 #' canvas.xlim = c(-5, 5), canvas.ylim = c(-3, 3),
-#' grid.col = color.grid)}
+#' grid.col = color.grid)
 #' @export
 
 relationship_plot<-function (qtl_file, x, y, grid.col = "gray60", degree = 90,canvas.xlim = c(-2, 2), canvas.ylim = c(-2, 2),cex, gap){

@@ -12,14 +12,14 @@
 #' @importFrom graphics barplot
 #' @importFrom RColorBrewer brewer.pal
 #' @examples
-#' \donttest{data(QTLmarkers)
+#' data(QTLmarkers)
 #' data(gffQTLs)
 #' out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 #' marker_file=QTLmarkers, method = "qtl",
 #' marker = "snp", interval = 500000, nThreads = NULL)
 #' oldpar <- par(mar=c(1,30,1,1))
-#' on.exit(par(oldpar))
-#' plot_qtl_info(out.qtls, qtl_plot = "qtl_type", cex=2)}
+#' plot_qtl_info(out.qtls, qtl_plot = "qtl_type", cex=2)
+#' par(oldpar)
 #' @export
 plot_qtl_info<-function(qtl_file,qtl_plot=c("qtl_type","qtl_name"), n="all",qtl_class=NULL,...){
   #check method

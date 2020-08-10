@@ -42,7 +42,7 @@ A chords relating x and y
 Takes the output from find_genes_qtls_around_markers function and creates a chord plot with the relationship between groups
 }
 \examples{
-\donttest{data(QTLmarkers)
+data(QTLmarkers)
 data(gffQTLs)
 out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 marker_file=QTLmarkers, method = "qtl",
@@ -66,5 +66,5 @@ unique(out.qtls.filtered$Reference))
 relationship_plot(qtl_file=out.qtls.filtered, x="Abbrev",
 y="Reference",cex=1,gap=5,degree = 90,
 canvas.xlim = c(-5, 5), canvas.ylim = c(-3, 3),
-grid.col = color.grid)}
+grid.col = color.grid)
 }

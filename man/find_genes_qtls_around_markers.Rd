@@ -36,9 +36,9 @@ A dataframe with the genes or QTLs mapped within the specified intervals
 Takes a list of candidate markers and or regions (haplotypes, CNVs, windows, etc.) and search for genes or QTLs in a determined interval
 }
 \examples{
-\donttest{data(QTLmarkers)
+data(QTLmarkers)
 data(gffQTLs)
 out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 marker_file=QTLmarkers, method = "qtl",
-marker = "snp", interval = 500000, nThreads = NULL)}
+marker = "snp", interval = 500000, nThreads = NULL)
 }

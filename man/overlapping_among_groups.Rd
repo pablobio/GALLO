@@ -20,11 +20,11 @@ A list with three matrices: 1) A matrix with the number of overlapping data; 2) 
 Takes a dataframe with a column of genes, QTLs (or other data) and a grouping column and create some matrices with the overlapping information
 }
 \examples{
-\donttest{data(QTLmarkers)
+data(QTLmarkers)
 data(gtfGenes)
 genes.out <- find_genes_qtls_around_markers(db_file=gtfGenes,
 marker_file=QTLmarkers,method="gene",
 marker="snp",interval=100000, nThreads=NULL)
 overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",
-y="gene_id")}
+y="gene_id")
 }

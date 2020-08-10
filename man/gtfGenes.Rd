@@ -24,7 +24,7 @@ data(gtfGenes)
 Data from the Ensembl comprasing the gene annotation for the bovine genome
 }
 \examples{
-\donttest{data(gtfGenes)}
+data(gtfGenes)
 }
 \keyword{datasets}
 \keyword{internal}

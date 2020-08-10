@@ -7,7 +7,8 @@
 #' @name import_gff_gtf
 #' @importFrom utils read.delim
 #' @examples
-#'\dontrun{qtl.inp <- import_gff_gtf(db_file="QTL_db.gff",file_type="gff")}
+#' gffpath <- system.file("extdata", "QTL_UMD_3.1.gff.txt", package="GALLO")
+#' qtl.inp <- import_gff_gtf(db_file=gffpath,file_type="gff")
 #' @export
 
 import_gff_gtf<-function(db_file,file_type){

@@ -19,6 +19,6 @@
 #'@keywords datasets
 #'
 #'@examples
-#'\donttest{data(gffQTLs)}
+#'data(gffQTLs)
 #' @keywords internal
 "gffQTLs"

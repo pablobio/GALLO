@@ -21,6 +21,6 @@
 #'@keywords datasets
 #'
 #'@examples
-#'\donttest{data(gtfGenes)}
+#'data(gtfGenes)
 #' @keywords internal
 "gtfGenes"

@@ -22,7 +22,7 @@ data(gffQTLs)
 Data from the Animal QTLdb comprasing the bovine QTL annotation
 }
 \examples{
-\donttest{data(gffQTLs)}
+data(gffQTLs)
 }
 \keyword{datasets}
 \keyword{internal}

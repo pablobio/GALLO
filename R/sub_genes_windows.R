@@ -12,13 +12,11 @@
 #' @importFrom data.table key
 #' @importFrom data.table as.data.table
 #' @importFrom parallel detectCores
-#' @importFrom dynamicTreeCut printFlush
 #' @importFrom doParallel registerDoParallel
 #' @importFrom foreach %dopar%
 #' @keywords internal
 #' @return A dataframe with the genes or QTLs mapped within the specified intervals
 sub_genes_windows<-function(chr_list,db_file,marker_file,nThreads=NULL,int=0){
-    MultiCores(nThreads)
     foreach::foreach(i=seq_along(1:length(chr_list)),.combine="rbind")%dopar%{ # chr in 1:ncrom
         chr<-chr_list[i]
         tmp_gene<-data.table::as.data.table(db_file[which(db_file$chr==chr),])

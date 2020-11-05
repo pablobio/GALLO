@@ -10,9 +10,9 @@
 #' data(gtfGenes)
 #' genes.out <- find_genes_qtls_around_markers(db_file=gtfGenes,
 #' marker_file=QTLmarkers,method="gene",
-#' marker="snp",interval=100000, nThreads=NULL)
-#'overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",
-#'y="gene_id")
+#' marker="snp",interval=100000, nThreads=1)
+#'overlapping.out<-overlapping_among_groups(
+#'file=genes.out,x="Reference",y="gene_id")
 #' @export
 overlapping_among_groups<-function(file,x,y){
 out.matrix.N<-matrix(ncol=length(unique(file[,x])), nrow=length(unique(file[,x])), NA, dimnames = list(unique(file[,x]),unique(file[,x])))

@@ -9,6 +9,7 @@ plot_qtl_info(
   qtl_plot = c("qtl_type", "qtl_name"),
   n = "all",
   qtl_class = NULL,
+  horiz = FALSE,
   ...
 )
 }
@@ -21,6 +22,8 @@ plot_qtl_info(
 
 \item{qtl_class}{Class of QTLs to be plotted when the qtl_name option is selected}
 
+\item{horiz}{The legend of the pie plot for the qtl_type should be plotted vertically or horizontally. The default is FALSE. Therefore, the legend is plotted vertically.}
+
 \item{...}{Arguments to be passed to/from other methods. For the default method these can include further arguments (such as axes, asp and main) and graphical parameters (see par) which are passed to plot.window(), title() and axis.}
 }
 \value{
@@ -32,10 +35,11 @@ Takes the output from find_genes_qtls_around_markers and create plots for the fr
 \examples{
 data(QTLmarkers)
 data(gffQTLs)
+
 out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
 marker_file=QTLmarkers, method = "qtl",
-marker = "snp", interval = 500000, nThreads = NULL)
-oldpar <- par(mar=c(1,30,1,1))
+marker = "snp", interval = 500000,
+nThreads = 1)
+
 plot_qtl_info(out.qtls, qtl_plot = "qtl_type", cex=2)
-par(oldpar)
 }

@@ -42,12 +42,15 @@ Takes the output from find_genes_qtls_around_markers and run a QTL enrichment an
 The simple bias of investigation for some traits (such as milk production related traits in the QTL database for cattle) may result in a larger proportion of records in the database. Consequently, the simple investigation of the proportion of each QTL type might not be totally useful. In order to reduce the impact of this bias, a QTL enrichment analysis can be performed. The QTL enrichment analysis performed by GALLO package is based in a hypergeometric test using the number of annoatted QTLs within the candidate regions and the total number of the same QTL in the QTL database.
 }
 \examples{
-data(QTLmarkers)
+\donttest{data(QTLmarkers)
 data(gffQTLs)
-out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
-marker_file=QTLmarkers, method = "qtl",
-marker = "snp", interval = 500000, nThreads = NULL)
-out.enrich<-qtl_enrich(qtl_db=gffQTLs, qtl_file=out.qtls,
-qtl_type = "Name", enrich_type = "chromosome",
-chr.subset = NULL, padj = "fdr",nThreads = NULL)
+out.qtls<-find_genes_qtls_around_markers(
+db_file=gffQTLs,marker_file=QTLmarkers,
+method = "qtl",marker = "snp",
+interval = 500000, nThreads = 1)
+
+out.enrich<-qtl_enrich(qtl_db=gffQTLs,
+qtl_file=out.qtls, qtl_type = "Name",
+enrich_type = "chromosome",chr.subset = NULL,
+padj = "fdr",nThreads = 1)}
 }

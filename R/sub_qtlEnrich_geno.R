@@ -12,10 +12,19 @@
 #' @name sub_qtlEnrich_geno
 #' @importFrom stats p.adjust
 #' @importFrom stats phyper
+#' @importFrom parallel detectCores
+#' @importFrom doParallel registerDoParallel
+#' @importFrom foreach %dopar%
 #' @keywords internal
 #'
 sub_qtlEnrich_geno<-function(qtl_file,qtl_type,qtl.file.types,table.qtl.class,padj,qtl_db,search_qtl,nThreads){
-    MultiCores(nThreads)
+    nCores<-parallel::detectCores()
+    if (!is.null(nThreads)){
+        cl<-doParallel::registerDoParallel(nThreads)
+    }else{
+        nThreads<- nCores
+        cl<-doParallel::registerDoParallel(nThreads)
+    }
     out.final<-foreach::foreach(k=qtl.file.types,.combine="rbind")%dopar%{
         tmp.qtl<-k
         tmp.qtl.file<-qtl_file[which(qtl_file[,qtl_type]==tmp.qtl),]
@@ -27,4 +36,5 @@ sub_qtlEnrich_geno<-function(qtl_file,qtl_type,qtl.file.types,table.qtl.class,pa
     }
     out.final$adj.pval<-p.adjust(out.final$pvalue,method=padj,n=nrow(out.final))
     return(out.final)
+    return(cl)
 }

@@ -18,6 +18,7 @@ A dataframe with the gtf or gtf content
 Takes a .gft or .gff file and import into a dataframe
 }
 \examples{
-gffpath <- system.file("extdata", "QTL_UMD_3.1.gff.txt", package="GALLO")
+gffpath <- system.file("extdata", "example.gff", package="GALLO")
+
 qtl.inp <- import_gff_gtf(db_file=gffpath,file_type="gff")
 }

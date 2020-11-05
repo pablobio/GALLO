@@ -1,1 +1,13 @@
 GALLO v0.0-99
+
+GALLO v1.0
+
+In this version the following updates were included:
+
+- Inclusion of a match.arg function for the marker argument in the find_genes_qtls_around_markers function.
+
+- The code to allow multithreading was updated in order to allow the user to choose one (1) thread as input.
+
+- The inclusion of the argument horiz in the plot_qtl_info() function, which allow the user to choose if the legend will be plotted vertically or horizontally.
+
+- Changes in the legend and plot area in the QTLentich_plot function in order to better address cases where the there is a large difference between the minimum and maximum number of QTLs annotated.

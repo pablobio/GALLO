@@ -4,7 +4,7 @@
 \alias{splitQTL_comment}
 \title{Sub-function to split comment column from QTL output}
 \usage{
-splitQTL_comment(output_qtls)
+splitQTL_comment(output.final)
 }
 \arguments{
 \item{output_qtls}{Output from QTL annotation}

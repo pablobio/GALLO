@@ -1,22 +1,23 @@
 Package: GALLO
 Title: Genomic Annotation in Livestock for Positional Candidate LOci
-Version: 0.99.0
+Version: 1.0
 Authors@R: 
     c(person(given = "Pablo",
            family = "Fonseca",
            role = c("aut", "cre"),
            email = "pfonseca@uoguelph.ca"), person("Aroa", "Suarez-Vega", email = "asuarezv@uoguelph.ca", role = "aut"),person("Gabriele", "Marras", email = "gmarras@semex.com", role = "aut"),person("Angela", "Cánovas", email = "acanovas@uoguelph.ca", role = "aut"))
-Description: The accurate annotation of genes and Quantitative Trait Loci (QTLs) located within candidate markers and/or regions (haplotypes, windows, CNVs, etc) is a crucial step the most common genomic analyses performed in livestock, such as Genome-Wide Association Studies or transcriptomics. The Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an R package designed to provide an intuitive and straightforward environment to annoatate positional candidate genes and QTLs from high-throughput genetic studies in livestock. Moreover, GALLO allows the graphical visualization of gene and QTL annotation results, data comparison among different grouping factors (e.g., methods, breeds, tissues, statistical models, studies, etc.), and QTL enrichment in different livestock species including cattle, pigs, sheep, and chicken, among others.
+Description: The accurate annotation of genes and Quantitative Trait Loci (QTLs) located within candidate markers and/or regions (haplotypes, windows, CNVs, etc) is a crucial step the most common genomic analyses performed in livestock, such as Genome-Wide Association Studies or transcriptomics. The Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an R package designed to provide an intuitive and straightforward environment to annotate positional candidate genes and QTLs from high-throughput genetic studies in livestock. Moreover, GALLO allows the graphical visualization of gene and QTL annotation results, data comparison among different grouping factors (e.g., methods, breeds, tissues, statistical models, studies, etc.), and QTL enrichment in different livestock species including cattle, pigs, sheep, and chicken, among others.
 URL: <https://github.com/pablobio/GALLO>
-Depends: R (>= 3.5.0)
+Depends: R (>= 4.0.0)
 biocViews: Software
-Imports: circlize, DT, data.table, doParallel, dplyr, dynamicTreeCut, ggplot2, graphics, grDevices, foreach, lattice , parallel, RColorBrewer, rtracklayer, stats, stringr, unbalhaar, utils
+Imports: circlize, DT, data.table, doParallel, dplyr, dynamicTreeCut, ggplot2, graphics, grDevices, foreach, lattice , magick, parallel, RColorBrewer, rtracklayer, stats, stringr, unbalhaar, utils
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Suggests: 
     BiocStyle,
+    Hmisc,
     knitr,
     rmarkdown,
     testthat

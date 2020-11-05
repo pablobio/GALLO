@@ -26,9 +26,14 @@ Takes the output from overlapping_among_groups function and creates a heatmap wi
 \examples{
 data(QTLmarkers)
 data(gtfGenes)
-genes.out <- find_genes_qtls_around_markers(db_file=gtfGenes,
-marker_file=QTLmarkers,method="gene",
-marker="snp",interval=100000, nThreads=NULL)
-overlapping.out<-overlapping_among_groups(file=genes.out,x="Reference",y="gene_id")
-plot_overlapping(overlapping.out,nmatrix=2,ntext=2,group=unique(genes.out$Reference))
+genes.out <- find_genes_qtls_around_markers(
+db_file=gtfGenes, marker_file=QTLmarkers,
+method="gene", marker="snp",interval=100000,
+nThreads=1)
+
+overlapping.out<-overlapping_among_groups(
+file=genes.out,x="Reference",y="gene_id")
+plot_overlapping(overlapping.out,
+nmatrix=2,ntext=2,
+group=unique(genes.out$Reference))
 }

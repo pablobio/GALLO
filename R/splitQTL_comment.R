@@ -6,8 +6,8 @@
 #' @importFrom stringr str_split_fixed
 #' @keywords internal
 
-splitQTL_comment<-function(output_qtls){
-    output_qtls<-as.data.frame(output_qtls)
+splitQTL_comment<-function(output.final){
+    output_qtls<-as.data.frame(output.final)
     output_qtls$QTL_type<-as.character(output_qtls$QTL_type)
     tmp.type<-vapply(strsplit(as.character(output_qtls[grep("_Association",output_qtls$QTL_type),"QTL_type"]), "_Association"),'[',1,FUN.VALUE=character(1))
     if(length(tmp.type)!=0){

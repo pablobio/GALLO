@@ -11,23 +11,32 @@
 #' @return A dataframe with the genes or QTLs mapped within the specified intervals
 #' @name find_genes_qtls_around_markers
 #' @importFrom utils read.delim
+#' @importFrom parallel stopCluster
 #' @examples
 #' data(QTLmarkers)
 #' data(gffQTLs)
-#' out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
-#' marker_file=QTLmarkers, method = "qtl",
-#' marker = "snp", interval = 500000, nThreads = NULL)
+#' out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs, marker_file=QTLmarkers,
+#' method = "qtl", marker = "snp",
+#' interval = 500000, nThreads = 1)
 #' @export
 
 find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qtl"),marker=c("snp","haplotype"),interval=0,nThreads=NULL, verbose=TRUE){
-    options(stringsAsFactors = F)
     interval=interval
-    nThreads=nThreads
     method <- match.arg(method)
+    marker <- match.arg(marker)
     if(verbose==TRUE){
         cat(paste("You are using the method:", method, "with", marker))
         cat("\n")
     }
+
+    nCores<-parallel::detectCores()
+    if (!is.null(nThreads)){
+      cl<-autoStopCluster(parallel::makePSOCKcluster(nThreads))
+    }else{
+      nThreads<- nCores
+      cl<-autoStopCluster(parallel::makePSOCKcluster(nThreads))
+      }
+
     if(marker=="snp"){
     #Creating gene data frame
         if (method=="gene"){
@@ -44,7 +53,7 @@ find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qt
                 cat("Preparing output file for QTL annotation")
                 cat("\n")
             }
-            output.final<-splitQTL_comment(output.final)
+            output.final<-splitQTL_comment(output.final=output.final)
         }
         }else{
 
@@ -61,8 +70,8 @@ find_genes_qtls_around_markers<-function(db_file,marker_file,method=c("gene","qt
         if(verbose==TRUE){
             cat("Preparing output file for QTL annotation")
         }
-        output.final<-splitQTL_comment(output.final)
-   }
-      }
+        output.final<-splitQTL_comment(output.final=output.final)
+    }
+        }
   return(as.data.frame(output.final))
 }

@@ -16,8 +16,7 @@
 #' @return A dataframe with the QTLs mapped within the specified intervals
 
 sub_qtl_windows<-function(chr_list,db_file,marker_file,nThreads=NULL,int=0){
-    MultiCores(nThreads)
-    foreach::foreach(i=seq_along(1:length(chr_list)),.combine="rbind")%dopar%{ # chr in 1:ncrom
+    foreach::foreach(i=seq_along(1:length(chr_list)),.combine="rbind")%dopar%{
         chr<-chr_list[i]
         tmp_qtl<-data.table::as.data.table(db_file[which(db_file$chr==chr),])
         tmp_markers<-data.table::as.data.table(marker_file[which(marker_file$CHR==chr),])

@@ -38,7 +38,7 @@ Takes a list of candidate markers and or regions (haplotypes, CNVs, windows, etc
 \examples{
 data(QTLmarkers)
 data(gffQTLs)
-out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs,
-marker_file=QTLmarkers, method = "qtl",
-marker = "snp", interval = 500000, nThreads = NULL)
+out.qtls<-find_genes_qtls_around_markers(db_file=gffQTLs, marker_file=QTLmarkers,
+method = "qtl", marker = "snp",
+interval = 500000, nThreads = 1)
 }

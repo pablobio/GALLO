@@ -7,7 +7,8 @@
 #' @name import_gff_gtf
 #' @importFrom utils read.delim
 #' @examples
-#' gffpath <- system.file("extdata", "QTL_UMD_3.1.gff.txt", package="GALLO")
+#' gffpath <- system.file("extdata", "example.gff", package="GALLO")
+#'
 #' qtl.inp <- import_gff_gtf(db_file=gffpath,file_type="gff")
 #' @export
 

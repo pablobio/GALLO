@@ -8,10 +8,7 @@ autoStopCluster <- function(cl) {
   env$cluster <- cl
   attr(cl, "gcMe") <- env
   reg.finalizer(env, function(e) {
-    message("Finalizing cluster ...")
-    message(capture.output(print(e$cluster)))
-    try(parallel::stopCluster(e$cluster), silent = FALSE)
-    message("Finalizing cluster ... done")
+    try(parallel::stopCluster(e$cluster), silent = TRUE)
   })
   cl
 }

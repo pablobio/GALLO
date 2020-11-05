@@ -30,6 +30,11 @@ vignette: >
 ---
 
 ## Introduction
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(crop = NULL)
+```
+
 \vspace{12pt}
 Genomic Annotation in Livestock for positional candidate LOci (GALLO) is an R package, for the accurate annotation of genes and Quantitative Trait Loci (QTLs) located within candidate markers and/or regions (haplotypes, windows, CNVs, etc) identified in the most common genomic analyses performed in livestock, such as Genome-Wide Association Studies or transcriptomics. Moreover, GALLO allows the graphical visualization of gene and QTL annotation results, data comparison among different grouping factors (e.g., methods, breeds, tissues, statistical models, studies, etc.), and QTL enrichment in different livestock species including cattle, pigs, sheep, and chicken, among others. 
 
@@ -470,7 +475,7 @@ _relationship_plot(qtl_file, x, y, grid.col = "gray60", degree = 90,canvas.xlim 
   
 \vspace{12pt}
 
-```{r, fig.width=7, fig.height=7, fig.cap="Chord plot showing the relationship between the studies (right-hand side) and the enriched QTLs (abbreviations in the left -hand side). Ref 1 is the correspondent ID for Feugang et al. (2010), while Ref 2 is the ID for Buzanskas et al. (2017)."}
+```{r, fig.width=9, fig.height=9, fig.cap="Chord plot showing the relationship between the studies (right-hand side) and the enriched QTLs (abbreviations in the left -hand side). Ref 1 is the correspondent ID for Feugang et al. (2010), while Ref 2 is the ID for Buzanskas et al. (2017)."}
 
 #Filtering the output from QTL annotation
 

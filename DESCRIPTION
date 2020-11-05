@@ -1,6 +1,6 @@
 Package: GALLO
 Title: Genomic Annotation in Livestock for Positional Candidate LOci
-Version: 1.0
+Version: 1.1
 Authors@R: 
     c(person(given = "Pablo",
            family = "Fonseca",

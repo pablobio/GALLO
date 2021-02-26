@@ -22,9 +22,7 @@ License: GPL-3
 
 **To install the package, the following command line can be use in R:**
 ```
-#install.packages("devtools")
-library(devtools)
-install_github("pablobio/GALLO")
+install.packages("GALLO")
 ```
 
 ## Functions description
